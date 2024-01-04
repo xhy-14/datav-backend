@@ -16,6 +16,7 @@ import io.renren.common.validator.Assert;
 import io.renren.modules.app.dao.UserDao;
 import io.renren.modules.app.entity.UserEntity;
 import io.renren.modules.app.form.LoginForm;
+import io.renren.modules.app.form.RegisterForm;
 import io.renren.modules.app.service.UserService;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.stereotype.Service;
@@ -41,4 +42,6 @@ public class UserServiceImpl extends ServiceImpl<UserDao, UserEntity> implements
 
 		return user.getUserId();
 	}
+
+
 }

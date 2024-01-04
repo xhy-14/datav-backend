@@ -3,6 +3,7 @@ package io.renren.modules.home.controller;
 import java.util.Arrays;
 import java.util.Map;
 
+import io.renren.modules.home.entity.dto.CarouselSaveDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -52,7 +53,7 @@ public class CarouselController {
     @RequestMapping("/info/{id}")
     @RequiresPermissions("home:carousel:info")
     public R info(@PathVariable("id") Long id){
-		CarouselEntity carousel = carouselService.getById(id);
+        CarouselEntity carousel = carouselService.getById(id);
 
         return R.ok().put("carousel", carousel);
     }
@@ -61,9 +62,9 @@ public class CarouselController {
      * 保存
      */
     @RequestMapping("/save")
-    @RequiresPermissions("home:carousel:save")
-    public R save(@RequestBody CarouselEntity carousel){
-		carouselService.save(carousel);
+    public R save(@RequestBody CarouselSaveDTO carouselSaveDTO){
+
+        carouselService.caroselSave(carouselSaveDTO);
 
         return R.ok();
     }
@@ -74,7 +75,7 @@ public class CarouselController {
     @RequestMapping("/update")
     @RequiresPermissions("home:carousel:update")
     public R update(@RequestBody CarouselEntity carousel){
-		carouselService.updateById(carousel);
+        carouselService.updateById(carousel);
 
         return R.ok();
     }
@@ -85,7 +86,7 @@ public class CarouselController {
     @RequestMapping("/delete")
     @RequiresPermissions("home:carousel:delete")
     public R delete(@RequestBody Long[] ids){
-		carouselService.removeByIds(Arrays.asList(ids));
+        carouselService.removeByIds(Arrays.asList(ids));
 
         return R.ok();
     }

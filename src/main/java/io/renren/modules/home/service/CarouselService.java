@@ -3,6 +3,7 @@ package io.renren.modules.home.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import io.renren.common.utils.PageUtils;
 import io.renren.modules.home.entity.CarouselEntity;
+import io.renren.modules.home.entity.dto.CarouselSaveDTO;
 
 import java.util.Map;
 
@@ -16,5 +17,7 @@ import java.util.Map;
 public interface CarouselService extends IService<CarouselEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
+    Boolean caroselSave(CarouselSaveDTO caroselSaveDTO);
+
 }
 

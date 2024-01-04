@@ -366,7 +366,7 @@ CREATE INDEX IDX_QRTZ_FT_TG ON QRTZ_FIRED_TRIGGERS(SCHED_NAME,TRIGGER_GROUP);
 
 -- 会员业务
 CREATE TABLE menber_member (
-  id bigint unsigned PRIMARY KEY COMMENT '会员ID',
+  id bigint unsigned AUTO_INCREMENT PRIMARY KEY COMMENT '会员ID',
   user_id bigint unsigned UNIQUE NOT NULL COMMENT '用户ID',
   is_delete boolean NOT NULL DEFAULT 0 COMMENT '是否删除，默认为0表示未删除',
   end_time datetime NOT NULL COMMENT '到期时间',
@@ -375,7 +375,7 @@ CREATE TABLE menber_member (
 ) COMMENT '会员表';
 
 CREATE TABLE menber_combo (
-  id bigint unsigned PRIMARY KEY COMMENT '套餐ID',
+  id bigint unsigned AUTO_INCREMENT PRIMARY KEY COMMENT '套餐ID',
   name varchar(255) UNIQUE NOT NULL COMMENT '套餐名称，唯一且不能为空',
   price decimal(10, 2) NOT NULL COMMENT '价格',
   term int NOT NULL COMMENT '时长',
@@ -386,7 +386,7 @@ CREATE TABLE menber_combo (
 ) COMMENT '套餐表';
 
 CREATE TABLE menber_order (
-  id bigint unsigned PRIMARY KEY COMMENT '订单ID',
+  id bigint unsigned AUTO_INCREMENT PRIMARY KEY COMMENT '订单ID',
   user_id bigint unsigned NOT NULL COMMENT '用户ID',
   combo_id bigint unsigned NOT NULL COMMENT '套餐ID',
   is_delete boolean NOT NULL DEFAULT 0 COMMENT '是否删除，默认为0表示未删除',
@@ -396,7 +396,7 @@ CREATE TABLE menber_order (
 
 -- 首页业务
 CREATE TABLE home_carousel (
-  id bigint unsigned PRIMARY KEY COMMENT '轮播ID',
+  id bigint unsigned AUTO_INCREMENT PRIMARY KEY COMMENT '轮播ID',
   file_id bigint unsigned NOT NULL COMMENT '文件ID',
   content text COMMENT '内容',
   is_delete boolean NOT NULL DEFAULT 0 COMMENT '是否删除，默认为0表示未删除',
@@ -405,7 +405,7 @@ CREATE TABLE home_carousel (
 ) COMMENT '轮播表';
 
 CREATE TABLE home_tutorial (
-  id bigint unsigned PRIMARY KEY COMMENT '教程ID',
+  id bigint unsigned AUTO_INCREMENT PRIMARY KEY COMMENT '教程ID',
   file_id bigint unsigned NOT NULL COMMENT '文件ID',
   title text NOT NULL COMMENT '小标题',
   content text COMMENT '内容',
@@ -417,7 +417,7 @@ CREATE TABLE home_tutorial (
 
 -- 文件系统业务
 CREATE TABLE file_file (
-  id bigint unsigned PRIMARY KEY COMMENT '文件ID',
+  id bigint unsigned AUTO_INCREMENT PRIMARY KEY COMMENT '文件ID',
   user_id bigint unsigned NOT NULL COMMENT '用户ID',
   name varchar(255) NOT NULL COMMENT '文件名',
   path varchar(255) NOT NULL COMMENT '文件存储路径',
@@ -430,7 +430,7 @@ CREATE TABLE file_file (
 ) COMMENT '文件表';
 
 CREATE TABLE file_file_type (
-  id bigint unsigned PRIMARY KEY COMMENT '文件类型ID',
+  id bigint unsigned AUTO_INCREMENT PRIMARY KEY COMMENT '文件类型ID',
   name varchar(255) UNIQUE NOT NULL COMMENT '文件类型名称，唯一且不能为空',
   is_delete boolean NOT NULL DEFAULT 0 COMMENT '是否删除，默认为0表示未删除',
   create_time datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
@@ -438,7 +438,7 @@ CREATE TABLE file_file_type (
 ) COMMENT '文件类型表';
 
 CREATE TABLE file_project (
-  id bigint unsigned PRIMARY KEY COMMENT '文件类型ID',
+  id bigint unsigned AUTO_INCREMENT PRIMARY KEY COMMENT '文件类型ID',
   user_id bigint unsigned UNIQUE NOT NULL COMMENT '用户id',
   name varchar(255) UNIQUE NOT NULL COMMENT '文件类型名称',
   depiction text COMMENT '描述',
@@ -448,7 +448,7 @@ CREATE TABLE file_project (
 ) COMMENT '项目表';
 
 CREATE TABLE file_file_project_relation (
-  id bigint unsigned PRIMARY KEY,
+  id bigint unsigned AUTO_INCREMENT PRIMARY KEY,
   file_id bigint unsigned NOT NULL,
   directory_id bigint unsigned NOT NULL,
   user_id bigint unsigned NOT NULL,
@@ -458,7 +458,7 @@ CREATE TABLE file_file_project_relation (
 ) COMMENT '文件项目关联表';
 
 CREATE TABLE file_export_file_type (
-  id bigint unsigned PRIMARY KEY COMMENT '导出文件类型ID',
+  id bigint unsigned AUTO_INCREMENT PRIMARY KEY COMMENT '导出文件类型ID',
   name varchar(255) UNIQUE NOT NULL COMMENT '文件类型名称',
   is_delete boolean NOT NULL DEFAULT 0 COMMENT '是否删除',
   create_time datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
@@ -467,7 +467,7 @@ CREATE TABLE file_export_file_type (
 
 -- 图表业务
 CREATE TABLE chart_chart_type (
-  id bigint unsigned PRIMARY KEY COMMENT '图表类型ID',
+  id bigint unsigned AUTO_INCREMENT PRIMARY KEY COMMENT '图表类型ID',
   cover_id bigint unsigned NOT NULL COMMENT '图标文件id',
   name varchar(255) UNIQUE NOT NULL COMMENT '图表类型名称',
   is_delete boolean NOT NULL DEFAULT 0 COMMENT '是否删除',
@@ -476,7 +476,7 @@ CREATE TABLE chart_chart_type (
 ) COMMENT '图表类型表';
 
 CREATE TABLE chart_parameter (
-  id bigint unsigned PRIMARY KEY COMMENT '参数ID',
+  id bigint unsigned AUTO_INCREMENT PRIMARY KEY COMMENT '参数ID',
   parameter_type_id bigint unsigned NOT NULL COMMENT '参数类型id',
   parameter_name varchar(255) UNIQUE NOT NULL COMMENT '参数名称',
   is_delete boolean NOT NULL DEFAULT 0 COMMENT '是否删除',
@@ -485,7 +485,7 @@ CREATE TABLE chart_parameter (
 ) COMMENT '参数表';
 
 CREATE TABLE chart_parameter_type (
-  id bigint unsigned PRIMARY KEY COMMENT '参数类型ID',
+  id bigint unsigned AUTO_INCREMENT PRIMARY KEY COMMENT '参数类型ID',
   type_name varchar(255) UNIQUE NOT NULL COMMENT '参数类型名称',
   analyse int NOT NULL COMMENT '解析方式id',
   is_delete boolean NOT NULL DEFAULT 0 COMMENT '是否删除',
@@ -494,7 +494,7 @@ CREATE TABLE chart_parameter_type (
 ) COMMENT '参数类型表';
 
 CREATE TABLE chart_parameter_chart_type_relation (
-  id bigint unsigned PRIMARY KEY,
+  id bigint unsigned AUTO_INCREMENT PRIMARY KEY,
   type_id bigint unsigned NOT NULL COMMENT '类型id',
   parameter_id bigint unsigned NOT NULL COMMENT '参数id',
   default_value varchar(255) NOT NULL COMMENT '默认值',
@@ -505,7 +505,7 @@ CREATE TABLE chart_parameter_chart_type_relation (
 
 -- 数据业务
 CREATE TABLE data_function_process (
-  id bigint unsigned PRIMARY KEY COMMENT '函数处理ID',
+  id bigint unsigned AUTO_INCREMENT PRIMARY KEY COMMENT '函数处理ID',
   name varchar(255) UNIQUE NOT NULL COMMENT '处理类型名称',
   is_delete boolean NOT NULL DEFAULT 0 COMMENT '是否删除',
   create_time datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
@@ -514,7 +514,7 @@ CREATE TABLE data_function_process (
 
 
 CREATE TABLE data_metadata (
-  id bigint unsigned PRIMARY KEY COMMENT '元数据ID',
+  id bigint unsigned AUTO_INCREMENT PRIMARY KEY COMMENT '元数据ID',
   user_id bigint unsigned NOT NULL COMMENT '用户id',
   file_id bigint unsigned NOT NULL COMMENT '文件id',
   data_file_id bigint unsigned NOT NULL COMMENT '数据集文件',
@@ -526,7 +526,7 @@ CREATE TABLE data_metadata (
 ) COMMENT '元数据表';
 
 CREATE TABLE data_generated_chart (
-  id bigint unsigned PRIMARY KEY COMMENT '已生成图表ID',
+  id bigint unsigned AUTO_INCREMENT PRIMARY KEY COMMENT '已生成图表ID',
   user_id bigint unsigned NOT NULL COMMENT '用户id',
   metadata_id bigint unsigned NOT NULL COMMENT '元数据id',
   name varchar(255) UNIQUE NOT NULL COMMENT '名称',
@@ -537,7 +537,7 @@ CREATE TABLE data_generated_chart (
 ) COMMENT '已生成图表表';
 
 CREATE TABLE data_generated_chart_parameter_relation (
-  id bigint unsigned PRIMARY KEY,
+  id bigint unsigned AUTO_INCREMENT PRIMARY KEY,
   generated_chart_id bigint unsigned NOT NULL COMMENT '已生成图表id',
   parameter_type_id bigint unsigned NOT NULL COMMENT '参数类型id',
   content varchar(255) NOT NULL COMMENT '参数内容',
@@ -547,7 +547,7 @@ CREATE TABLE data_generated_chart_parameter_relation (
 ) COMMENT '已生成图表-参数关联表';
 
 CREATE TABLE data_mysql_connection (
-  id bigint unsigned PRIMARY KEY COMMENT '连接ID',
+  id bigint unsigned AUTO_INCREMENT PRIMARY KEY COMMENT '连接ID',
   user_id bigint unsigned NOT NULL COMMENT '用户id',
   host varchar(255) NOT NULL COMMENT '主机',
   port varchar(255) NOT NULL COMMENT '端口',
