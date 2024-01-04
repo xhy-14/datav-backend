@@ -3,6 +3,7 @@ package io.renren.modules.home.controller;
 import java.util.Arrays;
 import java.util.Map;
 
+import io.renren.modules.home.entity.dto.TutorialSaveDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -61,10 +62,9 @@ public class TutorialController {
      * 保存
      */
     @RequestMapping("/save")
-    @RequiresPermissions("home:tutorial:save")
-    public R save(@RequestBody TutorialEntity tutorial){
-		tutorialService.save(tutorial);
+    public R save(@RequestBody TutorialSaveDTO tutorialSaveDTO){
 
+        tutorialService.tutorialSave(tutorialSaveDTO);
         return R.ok();
     }
 

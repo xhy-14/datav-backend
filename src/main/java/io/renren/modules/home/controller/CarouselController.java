@@ -64,7 +64,9 @@ public class CarouselController {
     @RequestMapping("/save")
     public R save(@RequestBody CarouselSaveDTO carouselSaveDTO){
 
-        carouselService.caroselSave(carouselSaveDTO);
+        Boolean save = carouselService.caroselSave(carouselSaveDTO);
+        if (!save)
+            return R.error( 10002, "上传失败，请重试");
 
         return R.ok();
     }

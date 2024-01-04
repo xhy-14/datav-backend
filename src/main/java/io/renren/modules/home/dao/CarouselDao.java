@@ -18,7 +18,7 @@ import java.util.List;
  */
 @Mapper
 public interface CarouselDao extends BaseMapper<CarouselEntity> {
-    @Select("SELECT home_carousel.id, file_id, content, path " +
+    @Select("SELECT home_carousel.id, file_id, content, path, home_carousel.is_delete, home_carousel.create_time, home_carousel.update_time " +
             "FROM file_file, home_carousel " +
             "WHERE file_file.id = home_carousel.file_id " +
             "LIMIT #{offset}, #{limit}")

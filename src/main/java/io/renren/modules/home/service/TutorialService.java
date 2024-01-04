@@ -3,6 +3,7 @@ package io.renren.modules.home.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import io.renren.common.utils.PageUtils;
 import io.renren.modules.home.entity.TutorialEntity;
+import io.renren.modules.home.entity.dto.TutorialSaveDTO;
 
 import java.util.Map;
 
@@ -16,5 +17,7 @@ import java.util.Map;
 public interface TutorialService extends IService<TutorialEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
+
+    Boolean tutorialSave(TutorialSaveDTO tutorialSaveDTO);
 }
 
