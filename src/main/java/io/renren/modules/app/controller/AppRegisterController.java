@@ -48,6 +48,7 @@ public class AppRegisterController {
         user.setUsername(form.getMobile());
         user.setPassword(DigestUtils.sha256Hex(form.getPassword()));
         user.setCreateTime(new Date());
+        user.setUpdateTime(new Date());
         userService.save(user);
 
         return R.ok();
