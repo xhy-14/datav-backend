@@ -20,7 +20,7 @@ public class CarouselServiceImpl extends ServiceImpl<CarouselDao, CarouselEntity
     public PageUtils queryPage(Map<String, Object> params) {
         IPage<CarouselEntity> page = this.page(
                 new Query<CarouselEntity>().getPage(params),
-                new QueryWrapper<CarouselEntity>()
+                new QueryWrapper<CarouselEntity>().eq("is_delete", 0).orderByDesc("create_time")
         );
 
         return new PageUtils(page);

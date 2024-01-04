@@ -3,6 +3,8 @@ package io.renren.modules.home.controller;
 import java.util.Arrays;
 import java.util.Map;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,7 +28,8 @@ import io.renren.common.utils.R;
  * @date 2024-01-03 11:43:50
  */
 @RestController
-@RequestMapping("home/carousel")
+@RequestMapping("common/home/carousel")
+@Api("轮播接口")
 public class CarouselController {
     @Autowired
     private CarouselService carouselService;
@@ -35,7 +38,7 @@ public class CarouselController {
      * 列表
      */
     @RequestMapping("/list")
-    @RequiresPermissions("home:carousel:list")
+    @ApiOperation("轮播查询")
     public R list(@RequestParam Map<String, Object> params){
         PageUtils page = carouselService.queryPage(params);
 

@@ -20,7 +20,7 @@ public class TutorialServiceImpl extends ServiceImpl<TutorialDao, TutorialEntity
     public PageUtils queryPage(Map<String, Object> params) {
         IPage<TutorialEntity> page = this.page(
                 new Query<TutorialEntity>().getPage(params),
-                new QueryWrapper<TutorialEntity>()
+                new QueryWrapper<TutorialEntity>().eq("is_delete", 0).orderByDesc("create_time")
         );
 
         return new PageUtils(page);
