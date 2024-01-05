@@ -50,34 +50,12 @@ public class TutorialServiceImpl extends ServiceImpl<TutorialDao, TutorialEntity
         //以下为存储文件
         String urlStr = tutorialSaveDTO.getUrl();
 
-        URL url = null;
-        try {
-            url = new URL(urlStr);
-        } catch (MalformedURLException e) {
-            throw new RuntimeException(e);
-        }
-
-        // 从 URL 中获取文件名
-        String fileName = url.getFile();
-        fileName = fileName.substring(fileName.lastIndexOf('/') + 1);
-
-        // 从文件名中获取文件类型（后缀）
-        String fileType = fileName.substring(fileName.lastIndexOf('.') + 1);
-
-        FileEntity fileEntity = new FileEntity();
-
+        FileEntity fileEntity = fileService.defaultValue(urlStr);
         //保存file实体信息
         fileEntity.setUserId(0L);
-        fileEntity.setName(fileName);
-        fileEntity.setPath(urlStr);
         fileEntity.setDepiction(tutorialSaveDTO.getContent());
-        fileEntity.setIsDelete(0);
         //文件大小,预留为0
         fileEntity.setSize(0);
-        //文件类型id，预留为0
-        fileEntity.setFileTypeId(0L);
-        fileEntity.setCreateTime(new Date());
-        fileEntity.setUpdateTime(new Date());
 
         fileService.save(fileEntity);
 

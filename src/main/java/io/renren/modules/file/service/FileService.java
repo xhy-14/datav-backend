@@ -16,5 +16,11 @@ import java.util.Map;
 public interface FileService extends IService<FileEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
+
+    Long getFileTypeId(String urlStr);
+
+    String getFileName(String urlStr);
+
+    FileEntity defaultValue(String urlStr);
 }
 
