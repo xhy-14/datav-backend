@@ -29,7 +29,7 @@ import org.springframework.web.multipart.MultipartFile;
  * @date 2024-01-03 11:40:21
  */
 @RestController
-@RequestMapping("common/file/file")
+@RequestMapping("file/file")
 public class FileController extends AbstractController {
     @Autowired
     private FileService fileService;
