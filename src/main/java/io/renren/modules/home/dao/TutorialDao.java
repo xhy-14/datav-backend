@@ -17,7 +17,7 @@ import java.util.List;
  */
 @Mapper
 public interface TutorialDao extends BaseMapper<TutorialEntity> {
-    @Select("select home_tutorial.id, file_id, title, content, file_file.path, " +
+    @Select("select home_tutorial.id, file_id, step, title, content, file_file.path, " +
             "home_tutorial.is_delete, home_tutorial.create_time, home_tutorial.update_time " +
             "from file_file, home_tutorial " +
             "where home_tutorial.file_id=file_file.id " +

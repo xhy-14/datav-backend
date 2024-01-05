@@ -9,11 +9,11 @@ import java.util.Date;
 public class TutorialVO {
     private Long id;
     private Long fileId;
+    private Integer step;
+    private String title;
     private String content;
     private String path;
     private Integer isDelete;
     private Date createTime;
     private Date updateTime;
-
-
 }
