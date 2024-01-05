@@ -41,7 +41,7 @@ public class CarouselServiceImpl extends ServiceImpl<CarouselDao, CarouselEntity
         Long total = baseMapper.queryCarouselVOCount();
 
         // 封装结果到 PageUtils 对象
-        PageUtils pageUtils = new PageUtils(carouselVOList, 0, 0, 0);
+        PageUtils pageUtils = new PageUtils(carouselVOList, total.intValue(), 0, 0);
 
         return pageUtils;
     }

@@ -32,13 +32,18 @@ public class TutorialServiceImpl extends ServiceImpl<TutorialDao, TutorialEntity
 
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
+
+        // 获取分页参数
+        Long current = Long.parseLong(params.getOrDefault("current", 1).toString());
+        Long size = Long.parseLong(params.getOrDefault("size", 10).toString());
+
         // 执行查询
-        List<TutorialVO> tutorialVOList = baseMapper.queryTutorialVOList();
+        List<TutorialVO> tutorialVOList = baseMapper.queryTutorialVOList((current - 1) * size, size);
 
-
+        Long total = baseMapper.queryTutorialVOCount();
 
         // 封装结果到 PageUtils 对象
-        PageUtils pageUtils = new PageUtils(tutorialVOList, 0, 0, 0);
+        PageUtils pageUtils = new PageUtils(tutorialVOList, total.intValue(), 0, 0);
 
         return pageUtils;
 

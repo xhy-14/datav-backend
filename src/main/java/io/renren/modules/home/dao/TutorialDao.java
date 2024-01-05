@@ -4,6 +4,7 @@ import io.renren.modules.home.entity.TutorialEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import io.renren.modules.home.entity.vo.TutorialVO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
@@ -21,7 +22,12 @@ public interface TutorialDao extends BaseMapper<TutorialEntity> {
             "home_tutorial.is_delete, home_tutorial.create_time, home_tutorial.update_time " +
             "from file_file, home_tutorial " +
             "where home_tutorial.file_id=file_file.id " +
-            "order by home_tutorial.step")
-    List<TutorialVO> queryTutorialVOList();
+            "order by home_tutorial.step " +
+            "LIMIT #{offset}, #{limit} ")
+    List<TutorialVO> queryTutorialVOList(@Param("offset") Long offset, @Param("limit") Long limit);
 
+    @Select("SELECT COUNT(*) " +
+            "FROM home_tutorial " +
+            "WHERE is_delete=0 ")
+    Long queryTutorialVOCount();
 }

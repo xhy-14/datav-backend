@@ -29,8 +29,7 @@ import io.renren.common.utils.R;
  * @date 2024-01-03 11:43:50
  */
 @RestController
-@RequestMapping("common/home/tutorial")
-@Api("教程接口")
+@RequestMapping("sys/home/tutorial")
 public class TutorialController {
     @Autowired
     private TutorialService tutorialService;
@@ -39,7 +38,6 @@ public class TutorialController {
      * 列表
      */
     @RequestMapping("/list")
-    @ApiOperation("教程查询")
     public R list(@RequestParam Map<String, Object> params){
         PageUtils page = tutorialService.queryPage(params);
 

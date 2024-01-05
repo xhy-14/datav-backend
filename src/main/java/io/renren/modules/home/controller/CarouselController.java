@@ -29,8 +29,7 @@ import io.renren.common.utils.R;
  * @date 2024-01-03 11:43:50
  */
 @RestController
-@RequestMapping("common/home/carousel")
-@Api("轮播接口")
+@RequestMapping("sys/home/carousel")
 public class CarouselController {
     @Autowired
     private CarouselService carouselService;
@@ -39,7 +38,6 @@ public class CarouselController {
      * 列表
      */
     @RequestMapping("/list")
-    @ApiOperation("轮播查询")
     public R list(@RequestParam Map<String, Object> params){
         PageUtils page = carouselService.queryPage(params);
 
