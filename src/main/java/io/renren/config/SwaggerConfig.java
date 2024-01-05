@@ -45,10 +45,10 @@ public class SwaggerConfig implements WebMvcConfigurer {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-            .title("人人开源")
-            .description("renren-fast文档")
+            .title("Datav数据可视化平台")
+            .description("Datav文档")
             .termsOfServiceUrl("https://www.renren.io")
-            .version("3.0.0")
+            .version("1.0.0")
             .build();
     }
 
