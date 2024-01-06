@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("common/member")
+@RequestMapping("/member/combo")
 @Api(tags = "套餐模块", description = "套餐")
 public class APPComboController {
 
