@@ -40,7 +40,6 @@ public class AppRegisterController {
     @PostMapping("register")
     @ApiOperation("注册")
     public R register(@RequestBody RegisterForm form){
-        userService.register(form);
-        return R.ok();
+        return userService.register(form);
     }
 }

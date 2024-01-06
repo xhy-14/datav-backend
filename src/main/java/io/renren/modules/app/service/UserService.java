@@ -29,7 +29,7 @@ public interface UserService extends IService<UserEntity> {
 	 * @param form    登录表单
 	 * @return        返回用户ID
 	 */
-	long login(LoginForm form);
+	R login(LoginForm form);
 	R register(RegisterForm form);
-
+	UserEntity currentUser(String token);
 }
