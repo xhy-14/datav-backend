@@ -60,7 +60,7 @@ public class UserServiceImpl extends ServiceImpl<UserDao, UserEntity> implements
 
 		//密码错误
 		if(!user.getPassword().equals(DigestUtils.sha256Hex(form.getPassword()))){
-			return R.fail(UserResponseCode.USER_REGISTER_ERROR.getCode(), UserResponseCode.USER_REGISTER_ERROR.getMsg());
+			return R.fail(UserResponseCode.USER_RESPONSE_ERROR.getCode(), UserResponseCode.USER_RESPONSE_ERROR.getMsg());
 		}
 
 		//生成token
@@ -70,7 +70,7 @@ public class UserServiceImpl extends ServiceImpl<UserDao, UserEntity> implements
 		map.put("token", token);
 		map.put("expire", jwtUtils.getExpire());
 
-		return R.ok(map);
+		return R.success(map);
 	}
 
 	/**
@@ -116,7 +116,7 @@ public class UserServiceImpl extends ServiceImpl<UserDao, UserEntity> implements
 		// 校验合格
 		baseMapper.insert(user);
 
-		return R.ok();
+		return R.success();
 	}
 
 	@Override

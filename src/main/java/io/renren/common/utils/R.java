@@ -52,6 +52,21 @@ public class R extends HashMap<String, Object> {
 		return r;
 	}
 
+	public static R success(Object data) {
+		R r = new R();
+		r.put("code", "00000");
+		r.put("msg", "请求成功");
+		r.put("data", data);
+		return r;
+	}
+
+	public static R success() {
+		R r = new R();
+		r.put("code", "00000");
+		r.put("msg", "请求成功");
+		return r;
+	}
+
 	public static R ok(String msg) {
 		R r = new R();
 		r.put("msg", msg);
