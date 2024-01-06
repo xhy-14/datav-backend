@@ -18,7 +18,7 @@ public class ChartServiceImpl extends ServiceImpl<ChartDao, ChartTypeEntity> imp
     public List<ChartTemplateInfoVo> allChartTemplates() {
         Page<ChartTypeEntity> page = new Page();
         Page<ChartTypeEntity> chartTypeEntityPage = baseMapper.selectPage(page, new QueryWrapper<>());
-        System.out.println(chartTypeEntityPage);
+        System.out.println(chartTypeEntityPage.getTotal());
         return null;
     }
 }

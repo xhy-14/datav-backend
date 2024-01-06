@@ -28,7 +28,7 @@ public class AppChartController {
     @GetMapping("/all")
     @ApiOperation("获取图表模板")
     public R chatsList() {
-
+        chartService.allChartTemplates();
         return R.ok();
     }
 }

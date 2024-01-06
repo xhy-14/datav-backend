@@ -1,6 +1,7 @@
 package io.renren.modules.chart.controller;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Map;
 
 import org.apache.shiro.authz.annotation.RequiresGuest;
@@ -57,6 +58,11 @@ public class ChartTypeController {
     @RequestMapping("/save")
     @RequiresPermissions("chart:charttype:save")
     public R save(@RequestBody ChartTypeEntity chartType){
+        Date time = new Date(System.currentTimeMillis());
+
+        chartType.setCreateTime(time);
+        chartType.setUpdateTime(time);
+        chartType.setIsDelete(0);
 		chartTypeService.save(chartType);
 
         return R.ok();
