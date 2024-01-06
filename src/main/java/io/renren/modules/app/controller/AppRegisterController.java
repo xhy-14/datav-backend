@@ -40,17 +40,7 @@ public class AppRegisterController {
     @PostMapping("register")
     @ApiOperation("注册")
     public R register(@RequestBody RegisterForm form){
-        //表单校验
-        ValidatorUtils.validateEntity(form);
-
-        UserEntity user = new UserEntity();
-        user.setMobile(form.getMobile());
-        user.setUsername(form.getMobile());
-        user.setPassword(DigestUtils.sha256Hex(form.getPassword()));
-        user.setCreateTime(new Date());
-        user.setUpdateTime(new Date());
-        userService.save(user);
-
+        userService.register(form);
         return R.ok();
     }
 }

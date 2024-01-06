@@ -10,6 +10,7 @@ package io.renren.modules.app.service;
 
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import io.renren.common.utils.R;
 import io.renren.modules.app.entity.UserEntity;
 import io.renren.modules.app.form.LoginForm;
 import io.renren.modules.app.form.RegisterForm;
@@ -29,6 +30,6 @@ public interface UserService extends IService<UserEntity> {
 	 * @return        返回用户ID
 	 */
 	long login(LoginForm form);
-
+	R register(RegisterForm form);
 
 }

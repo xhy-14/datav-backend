@@ -1,3 +1,9 @@
+/**
+ *
+ * @author xhy
+ * @time 2024-1-6
+ *
+ */
 package io.renren.modules.app.ResponseCode;
 
 public enum  SuccessResponseCode {

@@ -1,7 +1,7 @@
 /**
  *
- * xhy
- * 2024-1-5
+ * @author xhy
+ * @time 2024-1-5
  *
  */
 package io.renren.modules.app.controller.chart;
