@@ -26,7 +26,7 @@ public class R extends HashMap<String, Object> {
 	private static final long serialVersionUID = 1L;
 	
 	public R() {
-		put("code", "00000");
+		put("code", 0);
 		put("msg", "success");
 	}
 	
