@@ -1,6 +1,7 @@
 package io.renren.modules.menber.controller;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Map;
 
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -60,6 +61,10 @@ public class ComboController {
     @RequestMapping("/save")
     @RequiresPermissions("menber:combo:save")
     public R save(@RequestBody ComboEntity combo){
+        combo.setIsDelete(0);
+        combo.setCreateTime(new Date());
+        combo.setUpdateTime(new Date());
+
 		comboService.save(combo);
 
         return R.ok();
