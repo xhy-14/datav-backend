@@ -68,7 +68,7 @@ public class UserServiceImpl extends ServiceImpl<UserDao, UserEntity> implements
 		UserEntity registerUser = baseMapper.selectOne(
 				(Wrapper<UserEntity>) userQuery.eq("mobile", user.getMobile()));
 		if (registerUser != null) {
-			return R.ok(UserResponseCode.USER_EXISTS.getMsg(),
+			return R.fail(UserResponseCode.USER_EXISTS.getMsg(),
 					UserResponseCode.USER_EXISTS.getCode());
 		}
 		// 校验合格

@@ -29,12 +29,6 @@ public enum UserResponseCode {
         return msg;
     }
 
-    public Map<String, String> codeMap() {
-        Map<String, String> map = new HashMap<>();
-        map.put();
-        map.put();
-        return this.
-    }
     @Override
     public String toString() {
         return super.toString();
