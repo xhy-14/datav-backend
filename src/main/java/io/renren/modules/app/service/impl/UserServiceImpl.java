@@ -28,6 +28,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -46,6 +47,11 @@ public class UserServiceImpl extends ServiceImpl<UserDao, UserEntity> implements
 		return baseMapper.selectOne(new QueryWrapper<UserEntity>().eq("mobile", mobile));
 	}
 
+	/**
+	 * 用户登录
+	 * @param form    登录表单
+	 * @return R
+	 */
 	@Override
 	public R login(LoginForm form) {
 		//表单校验
@@ -76,7 +82,7 @@ public class UserServiceImpl extends ServiceImpl<UserDao, UserEntity> implements
 	/**
 	 * 用户注册
 	 * @param form
-	 * @return
+	 * @return R
 	 */
 	@Override
 	public R register(RegisterForm form) {
@@ -109,8 +115,8 @@ public class UserServiceImpl extends ServiceImpl<UserDao, UserEntity> implements
 		UserEntity registerUser = this.queryByMobile(user.getMobile());
 
 		if (registerUser != null) {
-			return R.fail(UserResponseCode.USER_EXISTS.getMsg(),
-					UserResponseCode.USER_EXISTS.getCode());
+			return R.fail(UserResponseCode.USER_EXISTS.getCode(),
+					UserResponseCode.USER_EXISTS.getMsg());
 		}
 
 		// 校验合格
@@ -119,8 +125,14 @@ public class UserServiceImpl extends ServiceImpl<UserDao, UserEntity> implements
 		return R.success();
 	}
 
+	/**
+	 * 获取当前登录用户
+	 * @param token
+	 * @return UserEntity
+	 */
 	@Override
-	public UserEntity currentUser(String token) {
+	public UserEntity currentUser(HttpServletRequest httpServletRequest) {
+		String token = httpServletRequest.getHeader("token");
 		if (token == null){
 			throw new RRException("用户未登录");
 		}

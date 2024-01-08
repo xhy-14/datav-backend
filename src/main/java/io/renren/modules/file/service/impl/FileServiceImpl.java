@@ -1,7 +1,9 @@
 package io.renren.modules.file.service.impl;
 
+import io.renren.common.exception.RRException;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Date;
@@ -62,5 +64,14 @@ public class FileServiceImpl extends ServiceImpl<FileDao, FileEntity> implements
         fileEntity.setCreateTime(new Date());
         fileEntity.setUpdateTime(new Date());
         return fileEntity;
+    }
+
+    @Override
+    public FileEntity getFileById(Long id) {
+        FileEntity file = baseMapper.selectOne(new QueryWrapper<FileEntity>().eq("id", id));
+        if(file == null) {
+            throw new RRException("文件不见了", 404);
+        }
+        return file;
     }
 }

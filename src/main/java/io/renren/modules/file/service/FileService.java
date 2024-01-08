@@ -22,5 +22,7 @@ public interface FileService extends IService<FileEntity> {
     String getFileName(String urlStr);
 
     FileEntity defaultValue(String urlStr);
+
+    FileEntity getFileById(Long id);
 }
 

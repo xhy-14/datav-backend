@@ -15,6 +15,8 @@ import io.renren.modules.app.entity.UserEntity;
 import io.renren.modules.app.form.LoginForm;
 import io.renren.modules.app.form.RegisterForm;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * 用户
  *
@@ -31,5 +33,5 @@ public interface UserService extends IService<UserEntity> {
 	 */
 	R login(LoginForm form);
 	R register(RegisterForm form);
-	UserEntity currentUser(String token);
+	UserEntity currentUser(HttpServletRequest httpServletRequest);
 }
