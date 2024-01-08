@@ -10,6 +10,7 @@ package io.renren.modules.app.service.impl;
 
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import io.jsonwebtoken.Claims;
@@ -138,5 +139,20 @@ public class UserServiceImpl extends ServiceImpl<UserDao, UserEntity> implements
 		}
 		UserEntity user = (UserEntity) jwtUtils.getClaimByToken(token);
 		return user;
+	}
+
+	/**
+	 * 根据id获取用户
+	 * @param id
+	 * @return
+	 */
+	@Override
+	public UserEntity getUserByID(Long id) {
+		if (id == null) {
+			throw new RRException("用户不存在");
+		}
+		LambdaQueryWrapper<UserEntity> queryWrapper = new LambdaQueryWrapper();
+		UserEntity userEntity = baseMapper.selectOne(queryWrapper.eq(UserEntity::getUserId, id));
+		return userEntity;
 	}
 }

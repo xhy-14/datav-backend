@@ -32,6 +32,25 @@ public interface UserService extends IService<UserEntity> {
 	 * @return        返回用户ID
 	 */
 	R login(LoginForm form);
+
+	/**
+	 * 用户注册
+	 * @param form
+	 * @return
+	 */
 	R register(RegisterForm form);
+
+	/**
+	 * 获取当前用户
+	 * @param httpServletRequest
+	 * @return
+	 */
 	UserEntity currentUser(HttpServletRequest httpServletRequest);
+
+	/**
+	 * 根据id获取用户
+	 * @param id
+	 * @return
+	 */
+	UserEntity getUserByID(Long id);
 }
