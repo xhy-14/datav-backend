@@ -1,6 +1,7 @@
 package io.renren.modules.chart.controller;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Map;
 
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -60,6 +61,9 @@ public class ParameterController {
     @RequestMapping("/save")
     @RequiresPermissions("chart:parameter:save")
     public R save(@RequestBody ParameterEntity parameter){
+        parameter.setIsDelete(0);
+        parameter.setCreateTime(new Date());
+        parameter.setUpdateTime(new Date());
 		parameterService.save(parameter);
 
         return R.ok();

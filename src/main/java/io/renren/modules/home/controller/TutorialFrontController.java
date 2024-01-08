@@ -51,7 +51,7 @@ public class TutorialFrontController {
 
         PageUtils page = tutorialService.queryPage(params);
 
-        return R.ok().put("page", page);
+        return R.success(page);
     }
 
 }

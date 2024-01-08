@@ -51,7 +51,7 @@ public class CarouselFrontController {
 
         PageUtils page = carouselService.queryPage(params);
 
-        return R.ok().put("page", page);
+        return R.success(page);
     }
 }
 

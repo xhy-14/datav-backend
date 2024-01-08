@@ -24,7 +24,7 @@ public class APPComboController {
     @ApiOperation("获取套餐列表")
     public R getComboList() {
         List<ComboInfoVo> comboList = comboService.getComboList();
-        return R.ok().put("comboList", comboList);
+        return R.success(comboList);
     }
 
 }
