@@ -18,7 +18,6 @@ import lombok.Data;
 @TableName("data_generated_chart_parameter_relation")
 public class GeneratedChartParameterRelationEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
-
 	/**
 	 * 
 	 */
@@ -29,9 +28,9 @@ public class GeneratedChartParameterRelationEntity implements Serializable {
 	 */
 	private Long generatedChartId;
 	/**
-	 * 参数类型id
+	 * 参数id
 	 */
-	private Long parameterTypeId;
+	private Long parameterId;
 	/**
 	 * 参数内容
 	 */

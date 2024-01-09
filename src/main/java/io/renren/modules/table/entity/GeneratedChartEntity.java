@@ -29,6 +29,10 @@ public class GeneratedChartEntity implements Serializable {
 	 */
 	private Long userId;
 	/**
+	 * 图表类型id
+	 */
+	private Long chartTypeId;
+	/**
 	 * 元数据id
 	 */
 	private Long metadataId;
