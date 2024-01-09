@@ -148,7 +148,7 @@ CREATE TABLE `tb_user` (
   `mobile` varchar(20) NOT NULL COMMENT '手机号',
   `password` varchar(64) COMMENT '密码',
   `create_time` datetime COMMENT '创建时间',
-  `update_time` datetime COMMENT '更新时间'
+  `update_time` datetime COMMENT '更新时间',
   PRIMARY KEY (`user_id`),
   UNIQUE INDEX (`username`)
 ) ENGINE=`InnoDB` DEFAULT CHARACTER SET utf8mb4 COMMENT='用户';
@@ -529,6 +529,7 @@ CREATE TABLE data_metadata (
 CREATE TABLE data_generated_chart (
   id bigint unsigned AUTO_INCREMENT PRIMARY KEY COMMENT '已生成图表ID',
   user_id bigint unsigned NOT NULL COMMENT '用户id',
+  chart_type_id bigint unsigned NOT NULL COMMENT '图表类型id',
   metadata_id bigint unsigned NOT NULL COMMENT '元数据id',
   name varchar(255) UNIQUE NOT NULL COMMENT '名称',
   depiction text COMMENT '描述',
@@ -540,7 +541,7 @@ CREATE TABLE data_generated_chart (
 CREATE TABLE data_generated_chart_parameter_relation (
   id bigint unsigned AUTO_INCREMENT PRIMARY KEY,
   generated_chart_id bigint unsigned NOT NULL COMMENT '已生成图表id',
-  parameter_type_id bigint unsigned NOT NULL COMMENT '参数类型id',
+  parameter_id bigint unsigned NOT NULL COMMENT '参数id',
   content varchar(255) NOT NULL COMMENT '参数内容',
   is_delete boolean NOT NULL DEFAULT 0 COMMENT '是否删除',
   create_time datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
