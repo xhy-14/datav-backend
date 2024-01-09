@@ -5,26 +5,37 @@
  */
 package io.renren.modules.app.service.impl;
 
+import cn.hutool.core.io.resource.MultiFileResource;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import io.renren.common.exception.RRException;
 import io.renren.common.utils.R;
 import io.renren.modules.app.dao.TableDao;
+import io.renren.modules.app.dto.TableDto;
 import io.renren.modules.app.entity.CSVEntity;
 import io.renren.modules.app.entity.UserEntity;
+import io.renren.modules.app.generator.BaseGenerator;
+import io.renren.modules.app.generator.CSVGenerator;
+import io.renren.modules.app.generator.GeneratorFactor;
 import io.renren.modules.app.service.TableService;
 import io.renren.modules.app.service.UserService;
 import io.renren.modules.app.utils.CSVUtils;
+import io.renren.modules.app.utils.FileCreator;
 import io.renren.modules.app.vo.table.TableDataVo;
 import io.renren.modules.app.vo.table.TableVo;
 import io.renren.modules.file.entity.FileEntity;
+import io.renren.modules.file.entity.FileTypeEntity;
 import io.renren.modules.file.service.FileService;
+import io.renren.modules.file.service.FileTypeService;
 import io.renren.modules.table.entity.MetadataEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
 
@@ -39,6 +50,12 @@ public class TableServiceImpl extends ServiceImpl<TableDao, MetadataEntity> impl
 
     @Autowired
     private CSVUtils csvUtils;
+
+    @Autowired
+    private FileTypeService fileTypeService;
+
+    @Autowired
+    private FileCreator fileCreator;
 
     /**
      * 获取数据表
@@ -79,7 +96,8 @@ public class TableServiceImpl extends ServiceImpl<TableDao, MetadataEntity> impl
 
         // 获取csv存贮文件
         FileEntity dataFile = fileService.getFileById(metadataEntity.getDataFileId());
-        CSVEntity csvEntity = getCSVObjByPath(dataFile.getPath());
+        CSVEntity csvEntity = csvUtils.getCSVByUrl(dataFile.getPath());
+
         TableDataVo tableDataVo = new TableDataVo();
 
         tableDataVo.setName(metadataEntity.getName());
@@ -94,6 +112,7 @@ public class TableServiceImpl extends ServiceImpl<TableDao, MetadataEntity> impl
      * @param id
      * @return
      */
+    @Override
     public MetadataEntity getTableInfoByID(Long id) {
         LambdaQueryWrapper<MetadataEntity> queryWrapper = new LambdaQueryWrapper<>();
         MetadataEntity metadataEntity = baseMapper.selectOne(
@@ -107,24 +126,36 @@ public class TableServiceImpl extends ServiceImpl<TableDao, MetadataEntity> impl
         return metadataEntity;
     }
 
+    @Override
+    public boolean generateTableByExcel(Long id) {
+        return false;
+    }
+
     /**
-     * 根据文件url获取csv对象
-     * @param path
+     * 生成table
+     * @param id
      * @return
      */
-    public CSVEntity getCSVObjByPath(String path) {
-        RestTemplate restTemplate = new RestTemplate();
+    @Override
+    public R generateTableByFile(Long id) {
+        // 查询文件
+        FileEntity file = fileService.getFileById(id);
+        FileTypeEntity fileType = fileTypeService.getFileTypeByID(file.getFileTypeId());
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
-        HttpEntity<InputStream> requestEntity = null;
-        requestEntity = new HttpEntity<>(headers);
+        // 生成对应的生成器
+        BaseGenerator generator = GeneratorFactor.factory(fileType.getName());
 
-        ResponseEntity<String> response = restTemplate.exchange(path, HttpMethod.POST, requestEntity, String.class, Charset.forName("UTF-8"));
+        CSVEntity csvEntity = generator.generateTable(file.getPath());
 
-        // 转为csv对象
-        String csvData = response.getBody();
-        CSVEntity csvEntity = csvUtils.stringToCSV(csvData);
-        return csvEntity;
+        return R.success(csvEntity);
+    }
+
+    @Override
+    public R saveTable(TableDto tableDto) {
+        String csvString = csvUtils.CSVToString(tableDto.getData());
+        FileEntity fileEntity = fileCreator.createFile(csvString, 0);
+
+        // 保存在metadata中
+        return R.success(fileEntity);
     }
 }

@@ -3,6 +3,7 @@ package io.renren.modules.file.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import io.renren.common.utils.PageUtils;
 import io.renren.modules.file.entity.FileEntity;
+import io.renren.modules.file.entity.FileTypeEntity;
 
 import java.util.Map;
 
@@ -15,14 +16,39 @@ import java.util.Map;
  */
 public interface FileService extends IService<FileEntity> {
 
+    /**
+     *
+     * @param params
+     * @return
+     */
     PageUtils queryPage(Map<String, Object> params);
 
-    Long getFileTypeId(String urlStr);
+    /**
+     *
+     * @param id
+     * @return FileTypeEntity
+     */
+    FileTypeEntity getFileTypeId(Long id);
 
+    /**
+     *
+     * @param urlStr
+     * @return
+     */
     String getFileName(String urlStr);
 
+    /**
+     *
+     * @param urlStr
+     * @return
+     */
     FileEntity defaultValue(String urlStr);
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     FileEntity getFileById(Long id);
 }
 

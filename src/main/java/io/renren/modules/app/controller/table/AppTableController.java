@@ -7,6 +7,7 @@ package io.renren.modules.app.controller.table;
 
 import io.renren.common.exception.RRException;
 import io.renren.common.utils.R;
+import io.renren.modules.app.dto.TableDto;
 import io.renren.modules.app.service.TableService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -32,10 +33,24 @@ public class AppTableController {
         return tableService.getTableByID(id);
     }
 
-    @GetMapping("/data/{id}")
+    @GetMapping("/data/metadata/{id}")
     @ApiOperation("获取数据表数据")
     public R getTableDataByID(@ApiParam(name = "id", value = "数据表id",required = true, type = "long")
                               @PathVariable Long id) {
         return tableService.getTableDataByID(id);
+    }
+
+    @GetMapping("/data/file/{id}")
+    @ApiOperation("上传文件生成对应table")
+    public R generateTableByFile(@ApiParam(name = "id", value = "文件id",required = true, type = "long")
+                               @PathVariable Long id){
+        return tableService.generateTableByFile(id);
+    }
+
+    @PostMapping("/data/save")
+    @ApiOperation("选择对应字段后保存在系统中,必用")
+    public R saveTable(@ApiParam(value = "数据表", required = true, type = "TableDto")
+                       @RequestBody TableDto tableDto) {
+        return tableService.saveTable(tableDto);
     }
 }

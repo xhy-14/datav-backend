@@ -128,16 +128,19 @@ public class UserServiceImpl extends ServiceImpl<UserDao, UserEntity> implements
 
 	/**
 	 * 获取当前登录用户
-	 * @param token
+	 * @param httpServletRequest
 	 * @return UserEntity
 	 */
 	@Override
 	public UserEntity currentUser(HttpServletRequest httpServletRequest) {
 		String token = httpServletRequest.getHeader("token");
+
 		if (token == null){
 			throw new RRException("用户未登录");
 		}
+
 		UserEntity user = (UserEntity) jwtUtils.getClaimByToken(token);
+
 		return user;
 	}
 

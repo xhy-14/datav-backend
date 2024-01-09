@@ -1,9 +1,11 @@
 package io.renren.modules.file.service.impl;
 
 import io.renren.common.exception.RRException;
+import io.renren.modules.file.entity.FileTypeEntity;
+import io.renren.modules.file.service.FileTypeService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Date;
@@ -22,6 +24,9 @@ import io.renren.modules.file.service.FileService;
 @Service("fileService")
 public class FileServiceImpl extends ServiceImpl<FileDao, FileEntity> implements FileService {
 
+    @Autowired
+    private FileTypeService fileTypeService;
+
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
         IPage<FileEntity> page = this.page(
@@ -32,10 +37,11 @@ public class FileServiceImpl extends ServiceImpl<FileDao, FileEntity> implements
         return new PageUtils(page);
     }
 
-    //根据url判断文件类型
     @Override
-    public Long getFileTypeId(String url) {
-        return 0l;
+    public FileTypeEntity getFileTypeId(Long id) {
+        FileEntity file = this.getFileById(id);
+        FileTypeEntity fileType = fileTypeService.getFileTypeByID(file.getFileTypeId());
+        return fileType;
     }
 
     @Override
@@ -57,7 +63,7 @@ public class FileServiceImpl extends ServiceImpl<FileDao, FileEntity> implements
     @Override
     public FileEntity defaultValue(String urlStr) {
         FileEntity fileEntity = new FileEntity();
-        fileEntity.setFileTypeId(getFileTypeId(urlStr));
+        fileEntity.setFileTypeId(0L);
         fileEntity.setName(getFileName(urlStr));
         fileEntity.setPath(urlStr);
         fileEntity.setIsDelete(0);

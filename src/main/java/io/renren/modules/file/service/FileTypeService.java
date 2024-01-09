@@ -16,5 +16,12 @@ import java.util.Map;
 public interface FileTypeService extends IService<FileTypeEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
+
+    /**
+     * 获取文件类型
+     * @param id
+     * @return
+     */
+    FileTypeEntity getFileTypeByID(Long id);
 }
 
