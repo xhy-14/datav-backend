@@ -25,6 +25,7 @@ import io.renren.modules.app.form.LoginForm;
 import io.renren.modules.app.form.RegisterForm;
 import io.renren.modules.app.service.UserService;
 import io.renren.modules.app.utils.JwtUtils;
+import io.renren.modules.app.vo.UserVo;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -73,7 +74,13 @@ public class UserServiceImpl extends ServiceImpl<UserDao, UserEntity> implements
 		//生成token
 		String token = jwtUtils.generateToken(user.getUserId());
 
+		UserVo userVo = new UserVo();
+		userVo.setName(user.getUsername());
+		userVo.setMobile(user.getMobile());
+
 		Map<String, Object> map = new HashMap<>();
+
+		map.put("user", userVo);
 		map.put("token", token);
 		map.put("expire", jwtUtils.getExpire());
 
