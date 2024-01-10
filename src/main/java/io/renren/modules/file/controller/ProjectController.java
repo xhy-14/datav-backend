@@ -1,6 +1,7 @@
 package io.renren.modules.file.controller;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Map;
 
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -60,6 +61,12 @@ public class ProjectController {
     @RequestMapping("/save")
     @RequiresPermissions("file:project:save")
     public R save(@RequestBody ProjectEntity project){
+
+        project.setUserId(0L);
+        project.setIsDelete(0);
+        project.setCreateTime(new Date());
+        project.setUpdateTime(new Date());
+
 		projectService.save(project);
 
         return R.ok();

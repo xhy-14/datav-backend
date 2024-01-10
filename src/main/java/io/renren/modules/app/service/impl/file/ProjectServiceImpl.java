@@ -1,6 +1,7 @@
 package io.renren.modules.app.service.impl.file;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import io.renren.common.exception.RRException;
 import io.renren.common.utils.R;
@@ -8,13 +9,18 @@ import io.renren.modules.app.ResponseCode.FileCode;
 import io.renren.modules.app.dto.ProjectDTO;
 import io.renren.modules.app.entity.UserEntity;
 import io.renren.modules.app.service.UserService;
+import io.renren.modules.app.service.file.FileProjectRelationService;
+import io.renren.modules.app.service.file.FileService;
 import io.renren.modules.app.service.file.ProjectService;
 import io.renren.modules.file.dao.ProjectDao;
+import io.renren.modules.file.entity.FileEntity;
+import io.renren.modules.file.entity.FileProjectRelationEntity;
 import io.renren.modules.file.entity.ProjectEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -23,6 +29,12 @@ public class ProjectServiceImpl extends ServiceImpl<ProjectDao, ProjectEntity> i
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private FileProjectRelationService fileProjectRelationService;
+
+    @Autowired
+    private FileService fileService;
 
 
     @Override
@@ -111,5 +123,28 @@ public class ProjectServiceImpl extends ServiceImpl<ProjectDao, ProjectEntity> i
         List<ProjectEntity> projectEntities = baseMapper.selectList(queryWrapper);
 
         return R.success(projectEntities);
+    }
+
+    @Override
+    public R getFilesByProject(HttpServletRequest request, Long projectId) {
+
+        UserEntity userEntity = userService.currentUser(request);
+
+        QueryWrapper<FileProjectRelationEntity> queryWrapper1 = new QueryWrapper<>();
+        queryWrapper1.eq("directory_id", projectId);
+
+        List<FileProjectRelationEntity> fileProjectRelationEntities = fileProjectRelationService.getBaseMapper().selectList(queryWrapper1);
+
+        List<FileEntity> fileList = new ArrayList<>();
+
+        for (FileProjectRelationEntity f : fileProjectRelationEntities) {
+
+            BaseMapper<FileEntity> fileServiceBaseMapper = fileService.getBaseMapper();
+            FileEntity fileEntity = fileServiceBaseMapper.selectById(f.getFileId());
+            fileList.add(fileEntity);
+
+        }
+
+        return R.success(fileList);
     }
 }

@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 
 @RestController
-@RequestMapping("/member/member")
+@RequestMapping("/common/member/member")
 @Api(tags = "会员模块", description = "会员")
 public class AppMemberController {
 
@@ -32,7 +32,9 @@ public class AppMemberController {
     public R memberIdentify(HttpServletRequest request) {
         UserEntity userEntity = userService.currentUser(request);
         Boolean isMember = memberService.memberIdentify(userEntity.getUserId());
-        return R.success();
+        return R.success(isMember);
     }
+
+
 
 }

@@ -1,11 +1,16 @@
 package io.renren.modules.file.service.impl;
 
 import io.renren.common.exception.RRException;
+import io.renren.common.utils.R;
+import io.renren.modules.app.dto.FileUploadDTO;
+import io.renren.modules.app.service.UserService;
 import io.renren.modules.file.entity.FileTypeEntity;
 import io.renren.modules.file.service.FileTypeService;
+import io.renren.modules.oss.cloud.OSSFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Date;
@@ -19,6 +24,9 @@ import io.renren.common.utils.Query;
 import io.renren.modules.file.dao.FileDao;
 import io.renren.modules.file.entity.FileEntity;
 import io.renren.modules.file.service.FileService;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletRequest;
 
 
 @Service("fileService")
@@ -26,6 +34,10 @@ public class FileServiceImpl extends ServiceImpl<FileDao, FileEntity> implements
 
     @Autowired
     private FileTypeService fileTypeService;
+
+    @Autowired
+    private UserService userService;
+
 
     @Override
     public PageUtils queryPage(Map<String, Object> params) {

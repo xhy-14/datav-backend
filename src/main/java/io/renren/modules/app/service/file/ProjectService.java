@@ -37,4 +37,11 @@ public interface ProjectService {
      */
     R getProjectList(HttpServletRequest request);
 
+    /**
+     * 获取某一文件夹所有文件
+     * @param request
+     * @param projectId
+     * @return
+     */
+    R getFilesByProject(HttpServletRequest request, Long projectId);
 }

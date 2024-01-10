@@ -146,9 +146,13 @@ public class UserServiceImpl extends ServiceImpl<UserDao, UserEntity> implements
 			throw new RRException("用户未登录");
 		}
 
-		UserEntity user = (UserEntity) jwtUtils.getClaimByToken(token);
+		String userIdStr = (String) jwtUtils.getClaimByToken(token).get("sub");
 
-		return user;
+		Long userId = Long.valueOf(userIdStr);
+
+		UserEntity userEntity = baseMapper.selectById(userId);
+
+		return userEntity;
 	}
 
 	/**

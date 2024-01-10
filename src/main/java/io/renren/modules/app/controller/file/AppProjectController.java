@@ -22,7 +22,7 @@ public class AppProjectController {
 
     @PostMapping("/save_project")
     @ApiOperation("保存文件夹(创建项目)")
-    public R saveProject(HttpServletRequest request,@RequestBody ProjectDTO projectDTO) {
+    public R saveProject(HttpServletRequest request, ProjectDTO projectDTO) {
         return projectService.saveProject(request, projectDTO);
     }
 
@@ -44,6 +44,15 @@ public class AppProjectController {
     @ApiOperation("获取我的文件夹列表")
     public R myProjectList(HttpServletRequest request) {
         return projectService.getProjectList(request);
+    }
+
+
+    @GetMapping("/get_files_by_project")
+    @ApiOperation("获取某一文件夹的文件列表")
+    public R getFilesByProject(HttpServletRequest request,
+                               @ApiParam(value = "文件夹id", name = "projectId", required = true)
+                               @RequestParam("projectId") Long projectId) {
+        return null;
     }
 
 }

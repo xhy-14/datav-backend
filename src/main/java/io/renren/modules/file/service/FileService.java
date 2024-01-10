@@ -2,9 +2,12 @@ package io.renren.modules.file.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import io.renren.common.utils.PageUtils;
+import io.renren.common.utils.R;
+import io.renren.modules.app.dto.FileUploadDTO;
 import io.renren.modules.file.entity.FileEntity;
 import io.renren.modules.file.entity.FileTypeEntity;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 /**
@@ -50,5 +53,6 @@ public interface FileService extends IService<FileEntity> {
      * @return
      */
     FileEntity getFileById(Long id);
+
 }
 
