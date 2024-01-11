@@ -440,7 +440,7 @@ CREATE TABLE file_file_type (
 
 CREATE TABLE file_project (
   id bigint unsigned AUTO_INCREMENT PRIMARY KEY COMMENT '文件类型ID',
-  user_id bigint unsigned UNIQUE NOT NULL COMMENT '用户id',
+  user_id bigint unsigned NOT NULL COMMENT '用户id',
   name varchar(255) UNIQUE NOT NULL COMMENT '文件类型名称',
   depiction text COMMENT '描述',
   is_delete boolean NOT NULL DEFAULT 0 COMMENT '是否删除',
