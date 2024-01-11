@@ -52,7 +52,7 @@ public class AppProjectController {
     public R getFilesByProject(HttpServletRequest request,
                                @ApiParam(value = "文件夹id", name = "projectId", required = true)
                                @RequestParam("projectId") Long projectId) {
-        return null;
+        return projectService.getFilesByProject(request, projectId);
     }
 
 }

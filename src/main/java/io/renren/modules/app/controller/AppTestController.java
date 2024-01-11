@@ -51,9 +51,5 @@ public class AppTestController {
         return R.ok().put("msg", "无需token也能访问。。。");
     }
 
-    @GetMapping("/charts")
-    @ApiOperation("图标生成测试")
-    public R charts() {
-        return R.success(new LingCharts());
-    }
+
 }
