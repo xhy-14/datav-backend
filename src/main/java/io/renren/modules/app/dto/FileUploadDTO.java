@@ -11,8 +11,6 @@ public class FileUploadDTO {
     @ApiModelProperty("文件夹id")
     Long projectId;
 
-    @ApiModelProperty("文件")
-    MultipartFile file;
 
     @ApiModelProperty("文件名")
     String name;

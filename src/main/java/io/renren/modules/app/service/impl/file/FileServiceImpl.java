@@ -29,12 +29,11 @@ public class FileServiceImpl extends ServiceImpl<FileDao, FileEntity> implements
     private FileProjectRelationService fileProjectRelationService;
 
     @Override
-    public R upLoadFile(HttpServletRequest request, FileUploadDTO fileUploadDTO) {
-        if (fileUploadDTO.getFile().isEmpty()) {
+    public R upLoadFile(HttpServletRequest request, FileUploadDTO fileUploadDTO, MultipartFile file) {
+        if (file.isEmpty()) {
             throw new RRException("上传文件不能为空");
         }
 
-        MultipartFile file = fileUploadDTO.getFile();
 
         //上传文件
         String suffix = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));

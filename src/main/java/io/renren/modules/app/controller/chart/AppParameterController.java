@@ -19,14 +19,5 @@ public class AppParameterController {
     @Autowired
     private ParameterService parameterService;
 
-    /**
-     * 获取模板参数
-     */
-    @GetMapping("/parameter_list")
-    @ApiOperation("根据模板id获取模板参数")
-    public R getParameterByChartType(@ApiParam(value = "模板id", required = true)
-                                     @RequestParam("chartId") Long chartId) {
-        return parameterService.getParametersByChartType(chartId);
-    }
 
 }

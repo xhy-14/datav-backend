@@ -29,13 +29,7 @@ public class AppGeneratedChartController {
         return generatedChartService.saveGeneratedChart(request, dto);
     }
 
-    @GetMapping("/user_generated_chart_list")
-    @ApiOperation("获取当前用户已生成图表")
-    public R userGeneratedChartList(HttpServletRequest request) {
 
-        return null;
-
-    }
 
 
 }

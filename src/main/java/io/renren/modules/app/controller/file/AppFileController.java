@@ -8,6 +8,7 @@ import io.renren.modules.file.entity.FileEntity;
 import io.renren.modules.oss.cloud.OSSFactory;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,8 +29,10 @@ public class AppFileController {
 
     @PostMapping("/upload")
     @ApiOperation("上传用户源文件")
-    public R upload(HttpServletRequest request, FileUploadDTO fileUploadDTO) throws Exception {
-        return fileService.upLoadFile(request, fileUploadDTO);
+    public R upload(HttpServletRequest request, FileUploadDTO fileUploadDTO,
+                    @ApiParam(value = "file", required = true)
+                    @RequestParam("file")MultipartFile file) throws Exception {
+        return fileService.upLoadFile(request, fileUploadDTO, file);
     }
 
 }

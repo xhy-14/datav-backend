@@ -10,6 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 
 public interface FileService extends IService<FileEntity> {
 
-    R upLoadFile(HttpServletRequest request, FileUploadDTO fileUploadDTO);
+    R upLoadFile(HttpServletRequest request, FileUploadDTO fileUploadDTO, MultipartFile file);
 
 }

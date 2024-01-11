@@ -22,24 +22,5 @@ public class AppGeneratedParameterController {
     @Autowired
     private GeneratedParameterService generatedParameterService;
 
-    @PostMapping("/save")
-    @ApiOperation("保存已生成参数")
-    public R saveGeneratedPrameter(@ApiParam(name = "parameters", value = "参数列表", type = "List<GeneratedParameterDTO>")
-                                   @RequestBody List<GeneratedParameterDTO> parameters,
-                                   @ApiParam("已生成图表id")
-                                   @RequestParam("generatedChartId") Long generatedChartId) {
-
-        if (parameters == null || generatedChartId == null) {
-            throw new RRException("参数列表不能为空");
-        }
-        Boolean saved = generatedParameterService.saveGeneratedParameters(parameters, generatedChartId);
-        if (saved) {
-            return R.success();
-        } else {
-            return R.fail(GeneratedParameterCode.MYSQL_ERROR.getCode(),
-                    GeneratedParameterCode.MYSQL_ERROR.getMsg());
-        }
-
-    }
 
 }
