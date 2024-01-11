@@ -6,6 +6,8 @@ import io.renren.modules.app.dto.TableDto;
 import io.renren.modules.app.entity.CSVEntity;
 import io.renren.modules.table.entity.MetadataEntity;
 
+import javax.servlet.http.HttpServletRequest;
+
 public interface TableService extends IService<MetadataEntity> {
     /**
      * 根据id获取table
@@ -47,5 +49,5 @@ public interface TableService extends IService<MetadataEntity> {
      * @param tableDto
      * @return
      */
-    R saveTable(TableDto tableDto);
+    R saveTable(TableDto tableDto, HttpServletRequest httpServletRequest);
 }

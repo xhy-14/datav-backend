@@ -33,6 +33,10 @@ public class ChartTypeEntity implements Serializable {
 	 */
 	private String name;
 	/**
+	 * 配置文件
+	 */
+	private String config;
+	/**
 	 * 是否删除
 	 */
 	private Integer isDelete;

@@ -34,6 +34,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -151,9 +152,11 @@ public class TableServiceImpl extends ServiceImpl<TableDao, MetadataEntity> impl
     }
 
     @Override
-    public R saveTable(TableDto tableDto) {
+    public R saveTable(TableDto tableDto, HttpServletRequest httpServletRequest) {
         String csvString = csvUtils.CSVToString(tableDto.getData());
-        FileEntity fileEntity = fileCreator.createFile(csvString, 0);
+        UserEntity userEntity = userService.currentUser(httpServletRequest);
+
+        FileEntity fileEntity = fileCreator.createFile(csvString, userEntity.getUserId());
 
         // 保存在metadata中
         return R.success(fileEntity);

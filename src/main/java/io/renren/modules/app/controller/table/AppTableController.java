@@ -15,6 +15,8 @@ import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+
 @RestController
 @RequestMapping("/app/table")
 @Api(tags = "数据模块", description = "数据信息")
@@ -50,7 +52,8 @@ public class AppTableController {
     @PostMapping("/data/save")
     @ApiOperation("选择对应字段后保存在系统中,必用")
     public R saveTable(@ApiParam(value = "数据表", required = true, type = "TableDto")
-                       @RequestBody TableDto tableDto) {
-        return tableService.saveTable(tableDto);
+                       @RequestBody TableDto tableDto,
+                       HttpServletRequest httpServletRequest) {
+        return tableService.saveTable(tableDto, httpServletRequest);
     }
 }

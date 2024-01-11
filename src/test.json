@@ -1,0 +1,55 @@
+{
+  "xAxis": {
+    "type": {
+      "pdefault": "category",
+      "pvalue": "log,time",
+      "ptype": "select"
+    },
+    "data": {
+      "pdefault": ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+      "ptype": "list",
+      "value": "null"
+    }
+  },
+  "title": {
+    "left": {
+      "pdefault": "center",
+      "pvalue": "left,right",
+      "ptype": "select"
+    },
+    "text": {
+      "pdefault": "Large Area Chart",
+      "pvalue": "left,right",
+      "ptype": "text"
+    }
+  },
+  "yAxis": {
+    "type": {
+      "pdefault": "value",
+      "pvalue": "log,time",
+      "ptype": "select"
+    }
+  },
+  "series": [
+    {
+      "data": {
+        "pdefault": [820, 932, 901, 934, 1290, 1330, 1320],
+        "ptype": "list",
+        "value": "null"
+      },
+      "type": {
+        "pdefault": "line",
+        "pvalue": "log,time",
+        "ptype": "select"
+      },
+      "smooth": {
+        "pdefault": true,
+        "pvalue": "log,time",
+        "ptype": "bool"
+      }
+    }
+  ]
+}
+  
+  
+  
