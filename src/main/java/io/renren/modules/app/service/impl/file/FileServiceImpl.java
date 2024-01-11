@@ -69,7 +69,7 @@ public class FileServiceImpl extends ServiceImpl<FileDao, FileEntity> implements
 
     public FileEntity defaultValue(String urlStr) {
         FileEntity fileEntity = new FileEntity();
-        fileEntity.setFileTypeId(0L);
+        fileEntity.setFileTypeId(1L);
         fileEntity.setPath(urlStr);
         fileEntity.setIsDelete(0);
         fileEntity.setCreateTime(new Date());
