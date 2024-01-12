@@ -10,7 +10,9 @@ import io.renren.modules.app.utils.CSVUtils;
 public class CSVGenerator extends BaseGenerator{
 
     @Override
-    public CSVEntity generateTable(String path) {
+    public CSVEntity generateTable(Object content) {
+        String path = (String) content;
+
         CSVUtils csvUtils = new CSVUtils();
         CSVEntity csv = csvUtils.getCSVByUrl(path);
 

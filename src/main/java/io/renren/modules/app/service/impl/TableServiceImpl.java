@@ -138,7 +138,7 @@ public class TableServiceImpl extends ServiceImpl<TableDao, MetadataEntity> impl
      * @return
      */
     @Override
-    public R generateTableByFile(Long id) {
+    public R generateTableByFileID(Long id) {
         // 查询文件
         FileEntity file = fileService.getFileById(id);
         FileTypeEntity fileType = fileTypeService.getFileTypeByID(file.getFileTypeId());
@@ -160,5 +160,13 @@ public class TableServiceImpl extends ServiceImpl<TableDao, MetadataEntity> impl
 
         // 保存在metadata中
         return R.success(fileEntity);
+    }
+
+    @Override
+    public R generateTableByFile(MultipartFile file) {
+        String fileType = file.getContentType();
+        BaseGenerator factory = GeneratorFactor.factory(fileType);
+        CSVEntity csvEntity = factory.generateTable(file);
+        return R.success(csvEntity);
     }
 }

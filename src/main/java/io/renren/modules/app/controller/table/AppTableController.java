@@ -14,6 +14,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -43,10 +44,16 @@ public class AppTableController {
     }
 
     @GetMapping("/data/file/{id}")
-    @ApiOperation("上传文件生成对应table")
-    public R generateTableByFile(@ApiParam(name = "id", value = "文件id",required = true, type = "long")
+    @ApiOperation("已上传文件生成对应table")
+    public R generateTableByFileID(@ApiParam(name = "id", value = "文件id",required = true, type = "long")
                                @PathVariable Long id){
-        return tableService.generateTableByFile(id);
+        return tableService.generateTableByFileID(id);
+    }
+
+    @PostMapping("/data/file")
+    @ApiOperation("上传文件生成对应table")
+    public R generateTableByFile(@RequestParam("file")MultipartFile file) {
+        return tableService.generateTableByFile(file);
     }
 
     @PostMapping("/data/save")

@@ -5,6 +5,7 @@ import io.renren.common.utils.R;
 import io.renren.modules.app.dto.TableDto;
 import io.renren.modules.app.entity.CSVEntity;
 import io.renren.modules.table.entity.MetadataEntity;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -42,7 +43,7 @@ public interface TableService extends IService<MetadataEntity> {
      * @param id
      * @return
      */
-    R generateTableByFile(Long id);
+    R generateTableByFileID(Long id);
 
     /**
      * 保存表
@@ -50,4 +51,11 @@ public interface TableService extends IService<MetadataEntity> {
      * @return
      */
     R saveTable(TableDto tableDto, HttpServletRequest httpServletRequest);
+
+    /**
+     * 上传文件生成数据表
+     * @param file
+     * @return
+     */
+    R generateTableByFile(MultipartFile file);
 }

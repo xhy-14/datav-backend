@@ -8,8 +8,8 @@ import io.renren.modules.app.entity.CSVEntity;
 public abstract class BaseGenerator {
     /**
      * 文件路径生成csv
-     * @param path
+     * @param obj
      * @return
      */
-    public abstract CSVEntity generateTable(String path);
+    public abstract CSVEntity generateTable(Object obj);
 }

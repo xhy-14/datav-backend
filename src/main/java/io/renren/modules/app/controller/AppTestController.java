@@ -12,7 +12,7 @@ package io.renren.modules.app.controller;
 import io.renren.common.utils.R;
 import io.renren.modules.app.annotation.Login;
 import io.renren.modules.app.annotation.LoginUser;
-import io.renren.modules.app.echarts.LingCharts;
+import io.renren.modules.app.echarts.line.LineChart;
 import io.renren.modules.app.entity.UserEntity;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -54,6 +54,7 @@ public class AppTestController {
     @GetMapping("/charts")
     @ApiOperation("图标生成测试")
     public R charts() {
-        return R.success(new LingCharts());
+        LineChart lineChart = new LineChart();
+        return R.success(lineChart);
     }
 }
