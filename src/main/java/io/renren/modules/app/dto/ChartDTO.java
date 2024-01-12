@@ -1,4 +1,4 @@
 package io.renren.modules.app.dto;
 
-public class ChartDto {
+public class ChartDTO {
 }

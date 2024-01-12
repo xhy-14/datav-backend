@@ -1,14 +1,12 @@
 package io.renren.modules.app.dto;
 
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-/**
- * 保存已生成图表
- */
 @Data
-public class SaveGeneratedChartDTO {
+public class UpdateGeneratedChartDTO {
+    @ApiModelProperty(value = "已生成图表id", required = true)
+    private Long generatedChartId;
     /**
      * 图表类型id
      */
@@ -29,4 +27,5 @@ public class SaveGeneratedChartDTO {
      */
     @ApiModelProperty(value = "图表描述")
     private String depicition;
+
 }

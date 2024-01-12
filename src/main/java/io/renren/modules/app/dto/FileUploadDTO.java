@@ -8,11 +8,11 @@ import org.springframework.web.multipart.MultipartFile;
 @Data
 public class FileUploadDTO {
 
-    @ApiModelProperty("文件夹id")
+    @ApiModelProperty(value = "文件夹id", required = true)
     Long projectId;
 
 
-    @ApiModelProperty("文件名")
+    @ApiModelProperty(value = "文件名", required = true)
     String name;
 
     @ApiModelProperty("描述")

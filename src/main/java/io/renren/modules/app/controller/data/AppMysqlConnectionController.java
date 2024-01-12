@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/common/mysql_connection")
-@Api(tags = "数据库连接")
+@Api(tags = "数据库连接", description = "数据模块")
 public class AppMysqlConnectionController {
 
     @Autowired

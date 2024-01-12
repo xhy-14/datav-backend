@@ -542,7 +542,7 @@ CREATE TABLE data_generated_chart_parameter_relation (
   id bigint unsigned AUTO_INCREMENT PRIMARY KEY,
   generated_chart_id bigint unsigned NOT NULL COMMENT '已生成图表id',
   parameter_id bigint unsigned NOT NULL COMMENT '参数id',
-  content varchar(255) NOT NULL COMMENT '参数内容',
+  content text NOT NULL COMMENT '参数内容',
   is_delete boolean NOT NULL DEFAULT 0 COMMENT '是否删除',
   create_time datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   update_time datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间'
