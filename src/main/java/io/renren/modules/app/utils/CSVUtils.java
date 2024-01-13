@@ -17,9 +17,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 @Component
 public class CSVUtils {
@@ -44,15 +42,15 @@ public class CSVUtils {
         if(rows.length <= 1) {
             return csvEntity;
         }
-        List<List<String>> allData = new ArrayList<>();
+        List<Map<Object, Object>> allData = new ArrayList<>();
         // 读取数据
         for (int i = 1; i<rows.length; i++) {
             String[] rowData = rows[i].split(",");
-            List<String> data = new ArrayList<>();
+            Map<Object, Object> map = new HashMap<>(10);
             for(String s: rowData) {
-                data.add(s);
+                map.put(headers[i], s);
             }
-            allData.add(data);
+            allData.add(map);
         }
 
         csvEntity.setRows(allData);
@@ -66,33 +64,7 @@ public class CSVUtils {
      * @return
      */
     public CSVEntity getCSVByUrl(String url) {
-        BufferedReader reader = null;
-        CSVEntity csvEntity = new CSVEntity();
-        csvEntity.setRows(new ArrayList<>());
-        try {
-            reader = new BufferedReader(new InputStreamReader(new URL(url).openStream()));
-            CSVReader csvReader = new CSVReader(reader);
-
-            // 读取数据
-            try {
-                List<String[]> rows = csvReader.readAll();
-                // 插入数据表头
-                csvEntity.setHeaders(Arrays.asList(rows.get(0)));
-
-                // 加入数据
-                for(int i = 1; i<rows.size(); i++) {
-                    csvEntity.getRows().add(Arrays.asList(rows.get(i)));
-                }
-
-            } catch (CsvException e) {
-                e.printStackTrace();
-            }
-
-        } catch (IOException e) {
-            throw new RRException("系统异常");
-        }
-
-        return csvEntity;
+        throw new RRException("not implement");
     }
 
     /**
