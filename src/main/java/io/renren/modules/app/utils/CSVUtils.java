@@ -47,8 +47,10 @@ public class CSVUtils {
         for (int i = 1; i<rows.length; i++) {
             String[] rowData = rows[i].split(",");
             Map<Object, Object> map = new HashMap<>(10);
+            int j = 0;
             for(String s: rowData) {
-                map.put(headers[i], s);
+                map.put(headers[j], s);
+                j++;
             }
             allData.add(map);
         }
