@@ -1,12 +1,15 @@
 package io.renren.modules.app.echarts.barchart;
 
+import com.github.abel533.echarts.Basic;
 import io.renren.modules.app.echarts.TextStyle;
 import io.renren.modules.app.echarts.Title;
+import io.renren.modules.app.echarts.line.LineSeries;
 import io.renren.modules.app.echarts.xAxis;
 import io.renren.modules.app.echarts.yAxis;
 import lombok.Data;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -21,27 +24,36 @@ public class BasicBarChart {
 
     private TextStyle textStyle;
 
+    private List<BasicBarSeries> series;
+
     public BasicBarChart() {
-        this.xAxis = new xAxis();
-        xAxis.setName("x轴");
+        xAxis = new xAxis();
+        yAxis = new yAxis();
+        title = new Title();
+        series = new ArrayList<>();
+
+        TextStyle textStyle = new TextStyle();
+
         xAxis.setType("category");
-        List<String> xData = new ArrayList<>();
-        xData.add("列1");
-        xData.add("列2");
-        xAxis.setData(Collections.singletonList(xData));
+        xAxis.setName("x标题");
 
-        this.yAxis = new yAxis();
-        yAxis.setName("y轴");
+        String[] header = {"一", "二", "三", "四", "五"};
+        xAxis.setData(Arrays.asList(header));
+
         yAxis.setType("value");
+        yAxis.setName("y坐标轴");
 
-        this.textStyle = new TextStyle();
-        textStyle.setColor("#9a60b4");
-        textStyle.setFontSize(18);
-        textStyle.setFontFamily("monospace");
-
-        this.title = new Title();
         title.setText("标题");
+        textStyle.setColor("black");
+        textStyle.setFontSize(18);
+
         title.setTextStyle(textStyle);
+
+        BasicBarSeries basicBarSeries = new BasicBarSeries();
+        Integer[] data = {12, 24, 255, 236, 21};
+        basicBarSeries.setData(Arrays.asList(data));
+
+        series.add(basicBarSeries);
     }
 
 }
