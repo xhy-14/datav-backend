@@ -14,4 +14,9 @@ public class Title {
      * 标题字体
      */
     private TextStyle textStyle;
+
+    /**
+     * 标题位置
+     */
+    private String left;
 }

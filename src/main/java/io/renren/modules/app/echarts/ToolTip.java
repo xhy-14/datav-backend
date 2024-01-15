@@ -7,6 +7,7 @@ public class ToolTip {
     private boolean show;
 
     /**
-     *
+     * 提示显示类型 item,
      */
+    private String trigger;
 }

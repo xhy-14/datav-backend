@@ -50,6 +50,7 @@ public class LineChart {
         yAxis.setName("y坐标轴");
 
         title.setText("标题");
+        title.
         textStyle.setColor("black");
         textStyle.setFontSize(18);
 
