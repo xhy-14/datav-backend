@@ -1,15 +1,12 @@
 package io.renren.modules.app.echarts.barchart;
 
-import com.github.abel533.echarts.Basic;
 import io.renren.modules.app.echarts.TextStyle;
 import io.renren.modules.app.echarts.Title;
 import io.renren.modules.app.echarts.XAxis;
 import io.renren.modules.app.echarts.YAxis;
-import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 public class BasicBarChart {
@@ -57,19 +54,19 @@ public class BasicBarChart {
         series.add(basicBarSeries);
     }
 
-    public io.renren.modules.app.echarts.xAxis getxAxis() {
+    public XAxis getxAxis() {
         return xAxis;
     }
 
-    public void setxAxis(io.renren.modules.app.echarts.xAxis xAxis) {
+    public void setxAxis(XAxis xAxis) {
         this.xAxis = xAxis;
     }
 
-    public io.renren.modules.app.echarts.yAxis getyAxis() {
+    public YAxis getyAxis() {
         return yAxis;
     }
 
-    public void setyAxis(io.renren.modules.app.echarts.yAxis yAxis) {
+    public void setyAxis(YAxis yAxis) {
         this.yAxis = yAxis;
     }
 

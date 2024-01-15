@@ -56,7 +56,7 @@ public class ProjectServiceImpl extends ServiceImpl<ProjectDao, ProjectEntity> i
 
         boolean saved = this.save(projectEntity);
         if (saved) {
-            return R.ok();
+            return R.success();
         } else {
             return R.fail(FileCode.MYSQL_ERROR.getCode(),
                     FileCode.MYSQL_ERROR.getMsg());

@@ -22,7 +22,8 @@ public class AppProjectController {
 
     @PostMapping("/save_project")
     @ApiOperation("保存文件夹(创建项目)")
-    public R saveProject(HttpServletRequest request, ProjectDTO projectDTO) {
+    public R saveProject(HttpServletRequest request,
+                         @RequestBody ProjectDTO projectDTO) {
         return projectService.saveProject(request, projectDTO);
     }
 
