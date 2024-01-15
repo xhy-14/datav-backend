@@ -2,8 +2,8 @@ package io.renren.modules.app.echarts.barchart;
 
 import io.renren.modules.app.echarts.TextStyle;
 import io.renren.modules.app.echarts.Title;
-import io.renren.modules.app.echarts.xAxis;
-import io.renren.modules.app.echarts.yAxis;
+import io.renren.modules.app.echarts.XAxis;
+import io.renren.modules.app.echarts.YAxis;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -13,16 +13,16 @@ import java.util.List;
 @Data
 public class BasicBarChart {
 
-    private xAxis xAxis;
+    private XAxis xAxis;
 
-    private yAxis yAxis;
+    private YAxis yAxis;
 
     private Title title;
 
     private TextStyle textStyle;
 
     public BasicBarChart() {
-        this.xAxis = new xAxis();
+        this.xAxis = new XAxis();
         xAxis.setName("x轴");
         xAxis.setType("category");
         List<String> xData = new ArrayList<>();
@@ -30,7 +30,7 @@ public class BasicBarChart {
         xData.add("列2");
         xAxis.setData(Collections.singletonList(xData));
 
-        this.yAxis = new yAxis();
+        this.yAxis = new YAxis();
         yAxis.setName("y轴");
         yAxis.setType("value");
 

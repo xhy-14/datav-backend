@@ -7,13 +7,13 @@
 package io.renren.modules.app.controller.chart;
 
 import io.renren.common.utils.R;
+import io.renren.modules.app.entity.CSVEntity;
 import io.renren.modules.app.service.ChartService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/common/chart")
@@ -29,5 +29,11 @@ public class AppChartController {
     @ApiOperation("获取图表模板")
     public R chatsList() {
         return chartService.allChartTemplates();
+    }
+
+    @PostMapping("/line")
+    @ApiOperation("生成折线图")
+    public R line(@ApiParam(name = "图表数据") @RequestBody CSVEntity csvEntity) {
+        return chartService.line(csvEntity);
     }
 }

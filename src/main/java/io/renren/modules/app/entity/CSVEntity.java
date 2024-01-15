@@ -1,5 +1,6 @@
 package io.renren.modules.app.entity;
 
+import io.swagger.annotations.ApiModel;
 import lombok.Data;
 
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.Map;
  * @author xiehanying
  */
 @Data
+@ApiModel("数据传输")
 public class CSVEntity {
     /**
      * 数据表头

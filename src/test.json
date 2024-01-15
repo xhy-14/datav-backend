@@ -3,7 +3,8 @@
     "type": {
       "pdefault": "category",
       "pvalue": "log,time",
-      "ptype": "select"
+      "ptype": "select",
+      "pcomment": "注释"
     },
     "data": {
       "pdefault": ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
