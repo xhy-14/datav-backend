@@ -3,9 +3,8 @@ package io.renren.modules.app.echarts.barchart;
 import com.github.abel533.echarts.Basic;
 import io.renren.modules.app.echarts.TextStyle;
 import io.renren.modules.app.echarts.Title;
-import io.renren.modules.app.echarts.line.LineSeries;
-import io.renren.modules.app.echarts.xAxis;
-import io.renren.modules.app.echarts.yAxis;
+import io.renren.modules.app.echarts.XAxis;
+import io.renren.modules.app.echarts.YAxis;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -15,9 +14,9 @@ import java.util.List;
 
 public class BasicBarChart {
 
-    private xAxis xAxis;
+    private XAxis xAxis;
 
-    private yAxis yAxis;
+    private YAxis yAxis;
 
     private Title title;
 
@@ -26,19 +25,20 @@ public class BasicBarChart {
     private List<BasicBarSeries> series;
 
     public BasicBarChart() {
-        xAxis = new xAxis();
-        yAxis = new yAxis();
+        xAxis = new XAxis();
+        yAxis = new YAxis();
         title = new Title();
         series = new ArrayList<>();
 
         TextStyle textStyle = new TextStyle();
-
         xAxis.setType("category");
         xAxis.setName("x标题");
 
         String[] header = {"一", "二", "三", "四", "五"};
         xAxis.setData(Arrays.asList(header));
 
+        this.yAxis = new YAxis();
+        yAxis.setName("y轴");
         yAxis.setType("value");
         yAxis.setName("y坐标轴");
 

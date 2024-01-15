@@ -1,10 +1,11 @@
 package io.renren.modules.app.echarts.line;
 
+import io.renren.common.exception.RRException;
 import io.renren.modules.app.echarts.TextStyle;
 import io.renren.modules.app.echarts.Title;
-import io.renren.modules.app.echarts.xAxis;
-import io.renren.modules.app.echarts.yAxis;
-import lombok.Data;
+import io.renren.modules.app.echarts.XAxis;
+import io.renren.modules.app.echarts.YAxis;
+import io.renren.modules.app.entity.CSVEntity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,23 +14,21 @@ import java.util.List;
 /**
  * @author xiehanying
  */
-@Data
 public class LineChart {
     /**
      * x
      */
-    private xAxis xAxis;
+    private XAxis xAxis;
 
     /**
      * y
      */
-    private yAxis yAxis;
+    private YAxis yAxis;
 
     /**
      * 标题
      */
     private Title title;
-
 
     /**
      * 数据
@@ -37,8 +36,8 @@ public class LineChart {
     private List<LineSeries> series;
 
     public LineChart() {
-        xAxis = new xAxis();
-        yAxis = new yAxis();
+        xAxis = new XAxis();
+        yAxis = new YAxis();
         title = new Title();
         series = new ArrayList<>();
 
@@ -46,9 +45,6 @@ public class LineChart {
 
         xAxis.setType("category");
         xAxis.setName("x标题");
-
-        String[] header = {"一", "二", "三", "四", "五"};
-        xAxis.setData(Arrays.asList(header));
 
         yAxis.setType("value");
         yAxis.setName("y坐标轴");
@@ -64,5 +60,54 @@ public class LineChart {
         lineSeries.setData(Arrays.asList(data));
 
         series.add(lineSeries);
+    }
+
+    public void setData(CSVEntity csvEntity) {
+        if(csvEntity.getHeaders().size() != 2) {
+            throw new RRException("数据格式不正确!");
+        }
+
+        List<Object> data = new ArrayList<>();
+        List<Object> headers = new ArrayList<>();
+
+        // 数据
+        for(int i=0; i<csvEntity.getRows().size(); i++) {
+            headers.add(csvEntity.getRows().get(i).get(csvEntity.getHeaders().get(0)));
+            data.add(csvEntity.getRows().get(i).get(csvEntity.getHeaders().get(1)));
+        }
+        this.getxAxis().setData(headers);
+        this.getSeries().get(0).setData(data);
+    }
+
+    public XAxis getxAxis() {
+        return xAxis;
+    }
+
+    public void setxAxis(XAxis xAxis) {
+        this.xAxis = xAxis;
+    }
+
+    public YAxis getyAxis() {
+        return yAxis;
+    }
+
+    public void setyAxis(YAxis yAxis) {
+        this.yAxis = yAxis;
+    }
+
+    public Title getTitle() {
+        return title;
+    }
+
+    public void setTitle(Title title) {
+        this.title = title;
+    }
+
+    public List<LineSeries> getSeries() {
+        return series;
+    }
+
+    public void setSeries(List<LineSeries> series) {
+        this.series = series;
     }
 }

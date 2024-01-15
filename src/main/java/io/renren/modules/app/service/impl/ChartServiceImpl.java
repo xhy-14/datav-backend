@@ -1,14 +1,13 @@
 package io.renren.modules.app.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import io.renren.common.utils.R;
 import io.renren.modules.app.dao.ChartDao;
+import io.renren.modules.app.echarts.line.LineChart;
+import io.renren.modules.app.entity.CSVEntity;
 import io.renren.modules.app.service.ChartService;
 import io.renren.modules.app.vo.ChartTemplateInfoVo;
 import io.renren.modules.chart.entity.ChartTypeEntity;
-import io.renren.modules.file.dao.FileDao;
 import io.renren.modules.file.entity.FileEntity;
 import io.renren.modules.file.service.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,5 +49,12 @@ public class ChartServiceImpl extends ServiceImpl<ChartDao, ChartTypeEntity> imp
         map.put("charts", chartTemplateInfoVoList);
 
         return R.success(map);
+    }
+
+    @Override
+    public R line(CSVEntity csvEntity) {
+        LineChart lineChart = new LineChart();
+        lineChart.setData(csvEntity);
+        return R.success(lineChart);
     }
 }

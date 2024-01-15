@@ -8,7 +8,7 @@ import java.util.List;
  * @author xiehanying
  */
 @Data
-public class xAxis {
+public class XAxis {
 
     /**
      * x轴类型

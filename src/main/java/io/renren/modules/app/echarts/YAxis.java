@@ -6,7 +6,7 @@ import lombok.Data;
  * @author xiehanying
  */
 @Data
-public class yAxis {
+public class YAxis {
     /**
      * y轴类型
      */

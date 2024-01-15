@@ -57,7 +57,7 @@ public class AppTableController {
     }
 
     @PostMapping("/data/save")
-    @ApiOperation("选择对应字段后保存在系统中,必用")
+    @ApiOperation("选择对应字段后保存在系统中")
     public R saveTable(@ApiParam(value = "数据表", required = true, type = "TableDto")
                        @RequestBody TableDto tableDto,
                        HttpServletRequest httpServletRequest) {

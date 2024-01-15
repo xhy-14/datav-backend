@@ -12,6 +12,7 @@ package io.renren.modules.app.controller;
 import io.renren.common.utils.R;
 import io.renren.modules.app.annotation.Login;
 import io.renren.modules.app.annotation.LoginUser;
+import io.renren.modules.app.echarts.line.LineChart;
 import io.renren.modules.app.entity.UserEntity;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -50,4 +51,10 @@ public class AppTestController {
         return R.ok().put("msg", "无需token也能访问。。。");
     }
 
+    @GetMapping("/test")
+    @ApiOperation("图表测试接口")
+    public R charts() {
+        LineChart lineChart = new LineChart();
+        return R.success(lineChart);
+    }
 }
