@@ -36,7 +36,7 @@ public class BarChartController {
         return barChartService.saveGeneratedChartParameter(basicBarChart, generatedChartId);
     }
 
-    @ApiOperation("获取某一图表参数")
+    @ApiOperation("获取某一图表参数(此方法可统一)")
     @GetMapping("/get_parameter")
     public R getParameterByChartId(@ApiParam(value = "已生成图表id", required = true)
                                    @RequestParam("generatedChartId")Long generatedChartId) {

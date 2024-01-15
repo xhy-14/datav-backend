@@ -13,7 +13,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-@Data
 public class BasicBarChart {
 
     private xAxis xAxis;
@@ -46,6 +45,8 @@ public class BasicBarChart {
         title.setText("标题");
         textStyle.setColor("black");
         textStyle.setFontSize(18);
+        textStyle.setFontFamily("monspace");
+        this.textStyle = textStyle;
 
         title.setTextStyle(textStyle);
 
@@ -56,4 +57,43 @@ public class BasicBarChart {
         series.add(basicBarSeries);
     }
 
+    public io.renren.modules.app.echarts.xAxis getxAxis() {
+        return xAxis;
+    }
+
+    public void setxAxis(io.renren.modules.app.echarts.xAxis xAxis) {
+        this.xAxis = xAxis;
+    }
+
+    public io.renren.modules.app.echarts.yAxis getyAxis() {
+        return yAxis;
+    }
+
+    public void setyAxis(io.renren.modules.app.echarts.yAxis yAxis) {
+        this.yAxis = yAxis;
+    }
+
+    public Title getTitle() {
+        return title;
+    }
+
+    public void setTitle(Title title) {
+        this.title = title;
+    }
+
+    public TextStyle getTextStyle() {
+        return textStyle;
+    }
+
+    public void setTextStyle(TextStyle textStyle) {
+        this.textStyle = textStyle;
+    }
+
+    public List<BasicBarSeries> getSeries() {
+        return series;
+    }
+
+    public void setSeries(List<BasicBarSeries> series) {
+        this.series = series;
+    }
 }
