@@ -1,14 +1,22 @@
 package io.renren.modules.app.echarts.barchart;
 
+import io.renren.common.exception.RRException;
 import io.renren.modules.app.echarts.TextStyle;
 import io.renren.modules.app.echarts.Title;
 import io.renren.modules.app.echarts.XAxis;
 import io.renren.modules.app.echarts.YAxis;
+import io.renren.modules.app.entity.CSVEntity;
+import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+
+/**
+ * @author xiehanying
+ */
+@Data
 public class BasicBarChart {
 
     private XAxis xAxis;
