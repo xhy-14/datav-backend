@@ -63,4 +63,10 @@ public class AppTableController {
                        HttpServletRequest httpServletRequest) {
         return tableService.saveTable(tableDto, httpServletRequest);
     }
+
+    @GetMapping("/data/my")
+    @ApiOperation("获取我的所有数据集")
+    public R datasetList(HttpServletRequest httpServletRequest) {
+        return tableService.datasetList(httpServletRequest);
+    }
 }

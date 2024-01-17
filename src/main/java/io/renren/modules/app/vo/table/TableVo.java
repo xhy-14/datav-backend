@@ -10,6 +10,11 @@ public class TableVo {
     private long id;
 
     /**
+     * 数据集名
+     */
+    private String name;
+
+    /**
      * 用户id
      */
     private long userId;

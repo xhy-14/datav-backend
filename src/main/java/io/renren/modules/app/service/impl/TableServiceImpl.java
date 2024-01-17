@@ -39,6 +39,9 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @Service
 public class TableServiceImpl extends ServiceImpl<TableDao, MetadataEntity> implements TableService {
@@ -154,12 +157,26 @@ public class TableServiceImpl extends ServiceImpl<TableDao, MetadataEntity> impl
     @Override
     public R saveTable(TableDto tableDto, HttpServletRequest httpServletRequest) {
         String csvString = csvUtils.CSVToString(tableDto.getData());
+        System.out.println(csvString);
         UserEntity userEntity = userService.currentUser(httpServletRequest);
 
         FileEntity fileEntity = fileCreator.createFile(csvString, userEntity.getUserId());
 
         // 保存在metadata中
-        return R.success(fileEntity);
+        MetadataEntity metadataEntity = new MetadataEntity();
+        metadataEntity.setName(tableDto.getName());
+        metadataEntity.setDataFileId(fileEntity.getId());
+        metadataEntity.setIsDelete(0);
+        metadataEntity.setFileId(0L);
+        metadataEntity.setUserId(userEntity.getUserId());
+        metadataEntity.setDepiction("");
+        Date time = new Date(System.currentTimeMillis());
+        metadataEntity.setCreateTime(time);
+        metadataEntity.setUpdateTime(time);
+
+        baseMapper.insert(metadataEntity);
+
+        return R.success(metadataEntity.getId());
     }
 
     @Override
@@ -168,5 +185,25 @@ public class TableServiceImpl extends ServiceImpl<TableDao, MetadataEntity> impl
         BaseGenerator factory = GeneratorFactor.factory(fileType);
         CSVEntity csvEntity = factory.generateTable(file);
         return R.success(csvEntity);
+    }
+
+    @Override
+    public R datasetList(HttpServletRequest httpServletRequest) {
+        UserEntity userEntity = userService.currentUser(httpServletRequest);
+        LambdaQueryWrapper<MetadataEntity> queryWrapper = new LambdaQueryWrapper<>();
+        List<MetadataEntity> metadataEntities = baseMapper.selectList(
+                queryWrapper.eq(MetadataEntity::getUserId, userEntity.getUserId())
+        );
+        List<TableVo> tableVos = new ArrayList<>();
+
+        for(MetadataEntity metadataEntity: metadataEntities) {
+            TableVo tableVo = new TableVo();
+            tableVo.setFileID(metadataEntity.getFileId());
+            tableVo.setName(metadataEntity.getName());
+            tableVo.setDepiction(metadataEntity.getDepiction());
+            tableVo.setId(metadataEntity.getId());
+            tableVos.add(tableVo);
+        }
+        return R.success(tableVos);
     }
 }

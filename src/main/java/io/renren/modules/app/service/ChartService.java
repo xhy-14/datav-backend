@@ -10,4 +10,6 @@ public interface ChartService {
     public R allChartTemplates();
 
     R line(CSVEntity csvEntity);
+
+    R pie(CSVEntity csvEntity);
 }

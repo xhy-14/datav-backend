@@ -36,4 +36,10 @@ public class AppChartController {
     public R line(@ApiParam(name = "图表数据") @RequestBody CSVEntity csvEntity) {
         return chartService.line(csvEntity);
     }
+
+    @PostMapping("/pie")
+    @ApiOperation("生成饼状图")
+    public R pie(@ApiParam(name = "图表数据") @RequestBody CSVEntity csvEntity) {
+        return chartService.pie(csvEntity);
+    }
 }

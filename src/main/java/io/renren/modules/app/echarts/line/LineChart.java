@@ -50,7 +50,6 @@ public class LineChart {
         yAxis.setName("y坐标轴");
 
         title.setText("标题");
-        title.
         textStyle.setColor("black");
         textStyle.setFontSize(18);
 
@@ -76,6 +75,7 @@ public class LineChart {
             headers.add(csvEntity.getRows().get(i).get(csvEntity.getHeaders().get(0)));
             data.add(csvEntity.getRows().get(i).get(csvEntity.getHeaders().get(1)));
         }
+
         this.getxAxis().setData(headers);
         this.getSeries().get(0).setData(data);
     }
