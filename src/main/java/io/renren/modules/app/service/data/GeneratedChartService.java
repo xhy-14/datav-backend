@@ -39,4 +39,12 @@ public interface GeneratedChartService extends IService<GeneratedChartEntity> {
      * @return
      */
     R listMyGeneratedChart(HttpServletRequest request);
+
+    /**
+     * 根据id获取已生成图表
+     * @param request
+     * @param generatedChartId
+     * @return
+     */
+    R getGeneratedChartById(HttpServletRequest request, Long generatedChartId);
 }
