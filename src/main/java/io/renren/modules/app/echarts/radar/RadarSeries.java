@@ -5,7 +5,7 @@ import java.util.List;
 
 public class RadarSeries {
 
-    private String name;
+    private Object name;
 
     private String type;
 
@@ -15,11 +15,11 @@ public class RadarSeries {
         this.data = new ArrayList<>();
     }
 
-    public String getName() {
+    public Object getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(Object name) {
         this.name = name;
     }
 

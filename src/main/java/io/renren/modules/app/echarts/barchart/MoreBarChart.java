@@ -71,7 +71,7 @@ public class MoreBarChart{
         for (int i=1;i<headers.size();i++) {
             MoreBarSeries moreBarSeries = new MoreBarSeries();
             moreBarSeries.setType("bar");
-            moreBarSeries.setName((String) headers.get(i));
+            moreBarSeries.setName(headers.get(i));
             moreBarSeries.setData(new ArrayList<>());
             for (int j=0;j < rows.size();j++) {
                 moreBarSeries.getData().add(rows.get(j).get(headers.get(i)));

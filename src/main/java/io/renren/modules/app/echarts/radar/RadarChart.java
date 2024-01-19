@@ -52,7 +52,7 @@ public class RadarChart {
 
         for (int i=0;i< rows.size();i++) {
             RadarData radarData = new RadarData();
-            radarData.setName((String) rows.get(i).get(headers.get(0)));
+            radarData.setName(rows.get(i).get(headers.get(0)));
             radarData.setValue(new ArrayList<>());
             for (int j=1;j<headers.size();j++) {
                 radarData.getValue().add(rows.get(i).get(headers.get(j)));
