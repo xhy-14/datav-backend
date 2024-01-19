@@ -4,17 +4,17 @@ import java.util.List;
 
 public class MoreBarSeries {
 
-    private String name;
+    private Object name;
 
     private String type;
 
     private List<Object> data;
 
-    public String getName() {
+    public Object getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(Object name) {
         this.name = name;
     }
 

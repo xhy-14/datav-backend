@@ -8,7 +8,7 @@ import java.util.Objects;
 
 public class RadarData {
 
-    private String name;
+    private Object name;
 
     private List<Object> value;
 
@@ -16,11 +16,11 @@ public class RadarData {
         this.value = new ArrayList<>();
     }
 
-    public String getName() {
+    public Object getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(Object name) {
         this.name = name;
     }
 
