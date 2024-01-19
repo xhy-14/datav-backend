@@ -50,6 +50,9 @@ public class CandlestickChart {
         List<Object> headers = csvEntity.getHeaders();
         List<Map<Object, Object>> rows = csvEntity.getRows();
 
+        if (headers.size() != 5) {
+            throw new RRException("数据有误");
+        }
 
         this.xAxis.setName((String) headers.get(0));
 
