@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -123,8 +124,13 @@ public class GeneratedChartServiceImpl extends ServiceImpl<GeneratedChartDao, Ge
         } catch (Exception e) {
             throw new RRException("数据库错误");
         }
+        List<GeneratedChartVo> generatedChartVos = new ArrayList<>();
+        for (GeneratedChartEntity generatedChartEntity : generatedChartEntities) {
+            GeneratedChartVo generatedChartVo = new GeneratedChartVo(generatedChartEntity);
+            generatedChartVos.add(generatedChartVo);
+        }
 
-        return R.success(generatedChartEntities);
+        return R.success(generatedChartVos);
     }
 
     @Override
