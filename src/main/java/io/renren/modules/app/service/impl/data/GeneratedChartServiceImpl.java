@@ -3,6 +3,8 @@ package io.renren.modules.app.service.impl.data;
 import ch.qos.logback.core.encoder.EchoEncoder;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.renren.common.exception.RRException;
 import io.renren.common.utils.R;
 import io.renren.modules.app.dto.SaveGeneratedChartDTO;
@@ -10,6 +12,7 @@ import io.renren.modules.app.dto.UpdateGeneratedChartDTO;
 import io.renren.modules.app.entity.UserEntity;
 import io.renren.modules.app.service.UserService;
 import io.renren.modules.app.service.data.GeneratedChartService;
+import io.renren.modules.app.vo.GeneratedChartVo;
 import io.renren.modules.table.dao.GeneratedChartDao;
 import io.renren.modules.table.entity.GeneratedChartEntity;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,10 +42,24 @@ public class GeneratedChartServiceImpl extends ServiceImpl<GeneratedChartDao, Ge
         generatedChartEntity.setUpdateTime(new Date());
         generatedChartEntity.setCreateTime(new Date());
 
+        Object option = saveGeneratedChartDTO.getOption();
+
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        String optionStr = null;
+
+        try {
+            optionStr = objectMapper.writeValueAsString(option);
+        } catch (JsonProcessingException e) {
+            throw new RRException("参数错误");
+        }
+
+        generatedChartEntity.setConfig(optionStr);
+
         try {
             save(generatedChartEntity);
         } catch (Exception e) {
-            throw new RRException("数据库错误");
+            throw e;
         }
 
         return R.success(generatedChartEntity);
@@ -108,5 +125,12 @@ public class GeneratedChartServiceImpl extends ServiceImpl<GeneratedChartDao, Ge
         }
 
         return R.success(generatedChartEntities);
+    }
+
+    @Override
+    public R getGeneratedChartById(HttpServletRequest request, Long generatedChartId) {
+
+        GeneratedChartEntity generatedChartEntity = baseMapper.selectById(generatedChartId);
+        return R.success(new GeneratedChartVo(generatedChartEntity));
     }
 }

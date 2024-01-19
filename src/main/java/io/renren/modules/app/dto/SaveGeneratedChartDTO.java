@@ -29,4 +29,9 @@ public class SaveGeneratedChartDTO {
      */
     @ApiModelProperty(value = "图表描述")
     private String depicition;
+    /**
+     * option字符串
+     */
+    @ApiModelProperty(value = "option对象")
+    private Object option;
 }

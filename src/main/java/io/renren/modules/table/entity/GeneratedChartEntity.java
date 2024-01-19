@@ -49,6 +49,10 @@ public class GeneratedChartEntity implements Serializable {
 	 */
 	private Integer isDelete;
 	/**
+	 * 参数配置
+	 */
+	private String config;
+	/**
 	 * 创建时间
 	 */
 	private Date createTime;

@@ -23,7 +23,8 @@ public class AppGeneratedChartController {
 
     @ApiOperation("添加已生成图表")
     @PostMapping("/save")
-    public R saveGeneratedChart(HttpServletRequest request, SaveGeneratedChartDTO saveGeneratedChartDTO) {
+    public R saveGeneratedChart(HttpServletRequest request,
+                                @RequestBody SaveGeneratedChartDTO saveGeneratedChartDTO) {
         return generatedChartService.saveGeneratedChart(request, saveGeneratedChartDTO);
     }
 
@@ -35,11 +36,11 @@ public class AppGeneratedChartController {
         return generatedChartService.deleteGeneratedChart(request, generatedChartId);
     }
 
-    @ApiOperation("修改已生成图表")
-    @PostMapping("/update")
-    public R updateGeneratedChart(HttpServletRequest request, UpdateGeneratedChartDTO updateGeneratedChartDTO) {
-        return generatedChartService.updateGeneratedChart(request, updateGeneratedChartDTO);
-    }
+//    @ApiOperation("修改已生成图表")
+//    @PostMapping("/update")
+//    public R updateGeneratedChart(HttpServletRequest request, UpdateGeneratedChartDTO updateGeneratedChartDTO) {
+//        return generatedChartService.updateGeneratedChart(request, updateGeneratedChartDTO);
+//    }
 
     @ApiOperation("查询我的已生成图表列表")
     @GetMapping("/list")
@@ -47,4 +48,11 @@ public class AppGeneratedChartController {
         return generatedChartService.listMyGeneratedChart(request);
     }
 
+    @ApiOperation("根据id查询已生成图表信息")
+    @GetMapping("/get_generated_chart_by_id")
+    public R getGeneratedChartById(HttpServletRequest request,
+                                   @ApiParam(value = "图表id",name = "generatedChartId")
+                                   @RequestParam("generatedChartId") Long generatedChartId) {
+        return generatedChartService.getGeneratedChartById(request, generatedChartId);
+    }
 }
