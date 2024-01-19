@@ -6,15 +6,12 @@ import io.renren.modules.app.echarts.Title;
 import io.renren.modules.app.echarts.XAxis;
 import io.renren.modules.app.echarts.YAxis;
 import io.renren.modules.app.entity.CSVEntity;
-import lombok.Data;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
-
-/**
- * @author xiehanying
- */
-public class BasicBarChart {
+public class MoreBarChart{
 
     private XAxis xAxis;
 
@@ -24,9 +21,12 @@ public class BasicBarChart {
 
     private TextStyle textStyle;
 
-    private List<BasicBarSeries> series;
+    private Legend legend;
 
-    public BasicBarChart() {
+    private List<MoreBarSeries> series;
+
+
+    public MoreBarChart() {
         xAxis = new XAxis();
         yAxis = new YAxis();
         title = new Title();
@@ -39,7 +39,7 @@ public class BasicBarChart {
         this.yAxis = new YAxis();
         yAxis.setName("y轴");
         yAxis.setType("value");
-        yAxis.setName("y坐标轴");
+        yAxis.setName("y");
 
         title.setText("标题");
         textStyle.setColor("black");
@@ -49,29 +49,44 @@ public class BasicBarChart {
 
         title.setTextStyle(textStyle);
 
+        legend = new Legend();
+
     }
 
     public void setData(CSVEntity csvEntity) {
-        if(csvEntity.getHeaders().size() != 2) {
-            throw new RRException("数据格式不正确!");
+        List<Object> headers = csvEntity.getHeaders();
+        List<Map<Object, Object>> rows = csvEntity.getRows();
+        if (headers.size() < 1) {
+            throw new RRException("数据格式错误");
         }
 
-        List<Object> headers = csvEntity.getHeaders();
-        this.xAxis.setName((String) headers.get(0));
-        this.yAxis.setName((String) headers.get(1));
+        this.getxAxis().setData(new ArrayList<>());
+        this.getxAxis().setName((String) headers.get(0));
+        this.series = new ArrayList<>();
 
+        for (int i=0;i<rows.size();i++) {
+            this.getxAxis().getData().add(rows.get(i).get(headers.get(0)));
+        }
 
-        this.xAxis.setData(new ArrayList<>());
-        this.series.add(new BasicBarSeries());
-        this.series.get(0).setData(new ArrayList<>());
-        List<Map<Object, Object>> rows = csvEntity.getRows();
-
-        for (int i = 0;i < rows.size();i++) {
-            this.xAxis.getData().add(rows.get(i).get(headers.get(0)));
-            this.series.get(0).getData().add(rows.get(i).get(headers.get(1)));
+        for (int i=1;i<headers.size();i++) {
+            MoreBarSeries moreBarSeries = new MoreBarSeries();
+            moreBarSeries.setType("bar");
+            moreBarSeries.setName((String) headers.get(i));
+            moreBarSeries.setData(new ArrayList<>());
+            for (int j=0;j < rows.size();j++) {
+                moreBarSeries.getData().add(rows.get(j).get(headers.get(i)));
+            }
+            this.series.add(moreBarSeries);
         }
     }
 
+    public Legend getLegend() {
+        return legend;
+    }
+
+    public void setLegend(Legend legend) {
+        this.legend = legend;
+    }
 
     public XAxis getxAxis() {
         return xAxis;
@@ -105,11 +120,11 @@ public class BasicBarChart {
         this.textStyle = textStyle;
     }
 
-    public List<BasicBarSeries> getSeries() {
+    public List<MoreBarSeries> getSeries() {
         return series;
     }
 
-    public void setSeries(List<BasicBarSeries> series) {
+    public void setSeries(List<MoreBarSeries> series) {
         this.series = series;
     }
 }
