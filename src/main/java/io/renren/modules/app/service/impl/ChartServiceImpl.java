@@ -3,6 +3,7 @@ package io.renren.modules.app.service.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import io.renren.common.utils.R;
 import io.renren.modules.app.dao.ChartDao;
+import io.renren.modules.app.echarts.PieChart.PieChart;
 import io.renren.modules.app.echarts.line.LineChart;
 import io.renren.modules.app.entity.CSVEntity;
 import io.renren.modules.app.service.ChartService;
@@ -56,5 +57,16 @@ public class ChartServiceImpl extends ServiceImpl<ChartDao, ChartTypeEntity> imp
         LineChart lineChart = new LineChart();
         lineChart.setData(csvEntity);
         return R.success(lineChart);
+    }
+
+    @Override
+    public R pie(CSVEntity csvEntity) {
+        PieChart pieChart = new PieChart(csvEntity);
+        return R.success(pieChart);
+    }
+
+    @Override
+    public R scatter(CSVEntity csvEntity) {
+        return null;
     }
 }

@@ -58,4 +58,6 @@ public interface TableService extends IService<MetadataEntity> {
      * @return
      */
     R generateTableByFile(MultipartFile file);
+
+    R datasetList(HttpServletRequest httpServletRequest);
 }

@@ -7,6 +7,7 @@ package io.renren.modules.app.utils;
 
 import cn.hutool.http.Header;
 import com.opencsv.CSVReader;
+import com.opencsv.bean.util.OpencsvUtils;
 import com.opencsv.exceptions.CsvException;
 import io.renren.common.exception.RRException;
 import io.renren.modules.app.entity.CSVEntity;
@@ -15,7 +16,9 @@ import org.springframework.web.client.RestTemplate;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.*;
 
@@ -62,11 +65,26 @@ public class CSVUtils {
 
     /**
      * 通过url读取csv文件
-     * @param url
+     * @param csvUrl
      * @return
      */
-    public CSVEntity getCSVByUrl(String url) {
-        throw new RRException("not implement");
+    public CSVEntity getCSVByUrl(String csvUrl) {
+        try {
+            URL url = new URL(csvUrl);
+            InputStream inputStream = url.openConnection().getInputStream();
+            InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+            StringBuilder stringBuilder = new StringBuilder();
+            String line = "";
+            while((line = bufferedReader.readLine()) != null) {
+                stringBuilder.append(line + "\r\n");
+            }
+            CSVEntity csvEntity = stringToCSV(stringBuilder.toString());
+            return csvEntity;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RRException("获取数据失败");
+        }
     }
 
     /**
@@ -90,9 +108,9 @@ public class CSVUtils {
         for (int i=0; i<csv.getRows().size(); i++) {
             for(int j=0; j<csv.getHeaders().size(); j++) {
                 if(j != csv.getHeaders().size()-1) {
-                    stringBuilder.append(csv.getRows().get(i).get(j) + ",");
+                    stringBuilder.append(csv.getRows().get(i).get(csv.getHeaders().get(j)) + ",");
                 } else {
-                    stringBuilder.append(csv.getRows().get(i).get(j) + "\r\n");
+                    stringBuilder.append(csv.getRows().get(i).get(csv.getHeaders().get(j)) + "\r\n");
                 }
             }
         }
