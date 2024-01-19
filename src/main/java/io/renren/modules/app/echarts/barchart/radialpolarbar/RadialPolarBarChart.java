@@ -22,6 +22,9 @@ public class RadialPolarBarChart {
     private Series series;
 
     public RadialPolarBarChart(CSVEntity csvEntity) {
+        if (csvEntity.getHeaders().size() != 2){
+            throw new RRException("数据格式错误");
+        }
         this.polar = new Polar();
         this.angleAxis = new AngleAxis();
         this.series = new Series();

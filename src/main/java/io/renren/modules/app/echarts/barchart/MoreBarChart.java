@@ -56,6 +56,9 @@ public class MoreBarChart{
     public void setData(CSVEntity csvEntity) {
         List<Object> headers = csvEntity.getHeaders();
         List<Map<Object, Object>> rows = csvEntity.getRows();
+        if (headers.size() < 1) {
+            throw new RRException("数据格式错误");
+        }
 
         this.getxAxis().setData(new ArrayList<>());
         this.getxAxis().setName((String) headers.get(0));

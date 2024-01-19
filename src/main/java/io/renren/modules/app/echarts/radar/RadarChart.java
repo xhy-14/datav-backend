@@ -23,6 +23,9 @@ public class RadarChart {
     private List<RadarSeries> series;
 
     public RadarChart(CSVEntity csvEntity) {
+        if (csvEntity.getHeaders().size() < 2) {
+            throw new RRException("数据格式错误");
+        }
         this.textStyle = new TextStyle();
         this.textStyle.setColor("black");
         this.textStyle.setFontSize(18);
