@@ -49,6 +49,7 @@ public class RadarChart {
             this.radar.getIndicator().add(indicatorObject);
         }
 
+
         for (int i=0;i< rows.size();i++) {
             RadarData radarData = new RadarData();
             radarData.setName((String) rows.get(i).get(headers.get(0)));
