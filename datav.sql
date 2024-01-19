@@ -533,6 +533,7 @@ CREATE TABLE data_generated_chart (
   metadata_id bigint unsigned NOT NULL COMMENT '元数据id',
   name varchar(255) UNIQUE NOT NULL COMMENT '名称',
   depiction text COMMENT '描述',
+  config text COMMENT '图表配置',
   is_delete boolean NOT NULL DEFAULT 0 COMMENT '是否删除',
   create_time datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   update_time datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间'

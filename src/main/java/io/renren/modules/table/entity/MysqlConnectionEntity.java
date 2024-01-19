@@ -61,4 +61,8 @@ public class MysqlConnectionEntity implements Serializable {
 	 */
 	private Date updateTime;
 
+	/**
+	 * 数据连接驱动类
+	 */
+	private String driver;
 }

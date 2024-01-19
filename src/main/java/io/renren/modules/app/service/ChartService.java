@@ -12,4 +12,6 @@ public interface ChartService {
     R line(CSVEntity csvEntity);
 
     R pie(CSVEntity csvEntity);
+
+    R scatter(CSVEntity csvEntity);
 }

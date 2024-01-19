@@ -7,6 +7,7 @@ package io.renren.modules.app.service.impl;
 
 import cn.hutool.core.io.resource.MultiFileResource;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import io.renren.common.exception.RRException;
 import io.renren.common.utils.R;
@@ -24,9 +25,13 @@ import io.renren.modules.app.utils.FileCreator;
 import io.renren.modules.app.vo.table.TableDataVo;
 import io.renren.modules.app.vo.table.TableVo;
 import io.renren.modules.file.entity.FileEntity;
+import io.renren.modules.file.entity.FileProjectRelationEntity;
 import io.renren.modules.file.entity.FileTypeEntity;
+import io.renren.modules.file.entity.ProjectEntity;
+import io.renren.modules.file.service.FileProjectRelationService;
 import io.renren.modules.file.service.FileService;
 import io.renren.modules.file.service.FileTypeService;
+import io.renren.modules.file.service.ProjectService;
 import io.renren.modules.table.entity.MetadataEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
@@ -60,6 +65,12 @@ public class TableServiceImpl extends ServiceImpl<TableDao, MetadataEntity> impl
 
     @Autowired
     private FileCreator fileCreator;
+
+    @Autowired
+    private ProjectService projectService;
+
+    @Autowired
+    private FileProjectRelationService projectRelationService;
 
     /**
      * 获取数据表
@@ -157,10 +168,35 @@ public class TableServiceImpl extends ServiceImpl<TableDao, MetadataEntity> impl
     @Override
     public R saveTable(TableDto tableDto, HttpServletRequest httpServletRequest) {
         String csvString = csvUtils.CSVToString(tableDto.getData());
-        System.out.println(csvString);
         UserEntity userEntity = userService.currentUser(httpServletRequest);
 
         FileEntity fileEntity = fileCreator.createFile(csvString, userEntity.getUserId());
+
+        LambdaQueryWrapper<ProjectEntity> queryWrapper = new LambdaQueryWrapper<>();
+        BaseMapper<ProjectEntity> projectBaseMapper = projectService.getBaseMapper();
+        List<ProjectEntity> projectEntities = projectBaseMapper.selectList(queryWrapper.eq(ProjectEntity::getUserId, userEntity.getUserId()));
+
+        boolean isUserProject = false;
+
+        for( ProjectEntity projectEntity: projectEntities) {
+            if(projectEntity.getId().equals(tableDto.getPid())) {
+                isUserProject = true;
+                break;
+            }
+        }
+
+        if( !isUserProject ) {
+            throw new RRException("该文件不属于该用户");
+        }
+        Date time = new Date(System.currentTimeMillis());
+        FileProjectRelationEntity fileProjectRelationEntity = new FileProjectRelationEntity();
+        fileProjectRelationEntity.setUserId(userEntity.getUserId());
+        fileProjectRelationEntity.setIsDelete(0);
+        fileProjectRelationEntity.setDirectoryId(tableDto.getPid());
+        fileProjectRelationEntity.setUpdateTime(time);
+        fileProjectRelationEntity.setCreateTime(time);
+        fileProjectRelationEntity.setFileId(fileEntity.getId());
+        projectRelationService.getBaseMapper().insert(fileProjectRelationEntity);
 
         // 保存在metadata中
         MetadataEntity metadataEntity = new MetadataEntity();
@@ -170,11 +206,10 @@ public class TableServiceImpl extends ServiceImpl<TableDao, MetadataEntity> impl
         metadataEntity.setFileId(0L);
         metadataEntity.setUserId(userEntity.getUserId());
         metadataEntity.setDepiction("");
-        Date time = new Date(System.currentTimeMillis());
         metadataEntity.setCreateTime(time);
         metadataEntity.setUpdateTime(time);
 
-        baseMapper.insert(metadataEntity);
+        this.baseMapper.insert(metadataEntity);
 
         return R.success(metadataEntity.getId());
     }

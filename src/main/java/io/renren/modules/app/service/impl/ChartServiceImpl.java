@@ -64,4 +64,9 @@ public class ChartServiceImpl extends ServiceImpl<ChartDao, ChartTypeEntity> imp
         PieChart pieChart = new PieChart(csvEntity);
         return R.success(pieChart);
     }
+
+    @Override
+    public R scatter(CSVEntity csvEntity) {
+        return null;
+    }
 }

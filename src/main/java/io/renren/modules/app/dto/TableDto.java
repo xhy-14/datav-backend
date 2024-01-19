@@ -18,5 +18,10 @@ public class TableDto {
     private String name;
 
     @ApiModelProperty("数据")
+    @NotBlank(message = "数据不能为空")
     private CSVEntity data;
+
+    @ApiModelProperty("项目id")
+    @NotBlank(message = "项目不能为空")
+    private Long pid;
 }

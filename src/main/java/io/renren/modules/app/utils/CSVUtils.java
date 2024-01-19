@@ -79,7 +79,6 @@ public class CSVUtils {
             while((line = bufferedReader.readLine()) != null) {
                 stringBuilder.append(line + "\r\n");
             }
-            System.out.println(stringBuilder.toString());
             CSVEntity csvEntity = stringToCSV(stringBuilder.toString());
             return csvEntity;
         } catch (Exception e) {
