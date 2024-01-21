@@ -3,6 +3,7 @@ package io.renren.modules.app.echarts.radar;
 import io.renren.common.exception.RRException;
 import io.renren.modules.app.echarts.TextStyle;
 import io.renren.modules.app.echarts.Title;
+import io.renren.modules.app.echarts.Tooltip;
 import io.renren.modules.app.entity.CSVEntity;
 
 import java.util.ArrayList;
@@ -13,6 +14,8 @@ import java.util.Map;
 public class RadarChart {
 
     private Title title;
+
+    private Tooltip tooltip;
 
     private TextStyle textStyle;
 
@@ -33,6 +36,8 @@ public class RadarChart {
         this.title = new Title();
         this.title.setText("标题");
         this.title.setTextStyle(textStyle);
+        this.tooltip = new Tooltip();
+        this.tooltip.setShow(true);
         this.legend = new Legend();
         this.radar = new Radar();
         this.series = new ArrayList<>();
