@@ -29,10 +29,10 @@ public class AppGeneratedChartController {
     }
 
     @ApiOperation("删除已生成图表")
-    @GetMapping("/delete")
+    @GetMapping("/delete/{generatedChartId}")
     public R deleteGeneratedChart(HttpServletRequest request,
                                   @ApiParam(value = "已生成图表id", name = "generatedChartId", required = true)
-                                  @RequestParam("generatedChartId") Long generatedChartId) {
+                                  @PathVariable Long generatedChartId) {
         return generatedChartService.deleteGeneratedChart(request, generatedChartId);
     }
 

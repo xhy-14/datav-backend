@@ -1,8 +1,4 @@
-package io.renren.modules.app.echarts.Funnel;
-
-import com.github.abel533.echarts.series.Funnel;
-import io.renren.modules.app.echarts.TextStyle;
-import io.renren.modules.app.echarts.Title;
+package io.renren.modules.app.echarts.funnel;
 
 import java.util.ArrayList;
 import java.util.List;

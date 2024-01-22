@@ -7,12 +7,14 @@ package io.renren.modules.app.service.impl;
 
 import cn.hutool.core.io.resource.MultiFileResource;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import io.renren.common.exception.RRException;
 import io.renren.common.utils.R;
 import io.renren.modules.app.dao.TableDao;
 import io.renren.modules.app.dto.TableDto;
+import io.renren.modules.app.dto.TableUpdateDTO;
 import io.renren.modules.app.entity.CSVEntity;
 import io.renren.modules.app.entity.UserEntity;
 import io.renren.modules.app.generator.BaseGenerator;
@@ -216,6 +218,25 @@ public class TableServiceImpl extends ServiceImpl<TableDao, MetadataEntity> impl
     }
 
     @Override
+    public R updateTable(TableUpdateDTO tableDto) {
+        String csvString = csvUtils.CSVToString(tableDto.getData());
+        MetadataEntity metadataEntity = baseMapper.selectById(tableDto.getId());
+        FileEntity fileEntity = fileCreator.createFile(csvString, metadataEntity.getUserId());
+        baseMapper.updateById(metadataEntity);
+
+        QueryWrapper<FileProjectRelationEntity> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("file_id", metadataEntity.getDataFileId());
+        FileProjectRelationEntity relationEntity = projectRelationService.getBaseMapper().selectOne(queryWrapper);
+        relationEntity.setFileId(fileEntity.getId());
+
+        metadataEntity.setDataFileId(fileEntity.getId());
+
+        baseMapper.updateById(metadataEntity);
+        projectRelationService.getBaseMapper().updateById(relationEntity);
+        return R.success();
+    }
+
+    @Override
     public R generateTableByFile(MultipartFile file) {
         String fileType = file.getContentType();
         BaseGenerator factory = GeneratorFactor.factory(fileType);
@@ -238,6 +259,12 @@ public class TableServiceImpl extends ServiceImpl<TableDao, MetadataEntity> impl
             tableVo.setName(metadataEntity.getName());
             tableVo.setDepiction(metadataEntity.getDepiction());
             tableVo.setId(metadataEntity.getId());
+
+            QueryWrapper<FileProjectRelationEntity> queryWrapper1 = new QueryWrapper<>();
+            queryWrapper1.eq("file_id", metadataEntity.getDataFileId());
+            FileProjectRelationEntity relationEntity = projectRelationService.getBaseMapper().selectOne(queryWrapper1);
+            tableVo.setProjectId(relationEntity.getDirectoryId());
+
             tableVos.add(tableVo);
         }
         return R.success(tableVos);

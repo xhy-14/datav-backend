@@ -7,6 +7,7 @@
 package io.renren.modules.app.controller.chart;
 
 import io.renren.common.utils.R;
+import io.renren.modules.app.echarts.line.moreline.MoreLineChart;
 import io.renren.modules.app.entity.CSVEntity;
 import io.renren.modules.app.service.ChartService;
 import io.swagger.annotations.Api;
@@ -41,5 +42,11 @@ public class AppChartController {
     @ApiOperation("生成饼状图")
     public R pie(@ApiParam(name = "图表数据") @RequestBody CSVEntity csvEntity) {
         return chartService.pie(csvEntity);
+    }
+
+    @PostMapping("/moreline")
+    @ApiOperation("更多折线图")
+    public R moreLine(@RequestBody CSVEntity csvEntity) {
+        return R.success(new MoreLineChart(csvEntity));
     }
 }

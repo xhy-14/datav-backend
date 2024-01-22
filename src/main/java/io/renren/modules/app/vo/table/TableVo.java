@@ -38,4 +38,9 @@ public class TableVo {
      * 描述
      */
     private String depiction;
+
+    /**
+     * 项目id
+     */
+    private Long projectId;
 }

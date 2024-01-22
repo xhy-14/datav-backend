@@ -1,4 +1,4 @@
-package io.renren.modules.app.echarts.Funnel;
+package io.renren.modules.app.echarts.funnel;
 
 public class Label {
 

@@ -2,7 +2,7 @@ package io.renren.modules.app.controller.chart;
 
 
 import io.renren.common.utils.R;
-import io.renren.modules.app.echarts.Funnel.FunnelChart;
+import io.renren.modules.app.echarts.funnel.FunnelChart;
 import io.renren.modules.app.entity.CSVEntity;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
