@@ -8,6 +8,8 @@ import io.renren.common.utils.R;
 import io.renren.modules.app.ResponseCode.MysqlCode;
 import io.renren.modules.app.dao.MysqlDao;
 import io.renren.modules.app.dto.MysqlConnectDto;
+import io.renren.modules.app.dto.MysqlSqlDto;
+import io.renren.modules.app.entity.CSVEntity;
 import io.renren.modules.app.entity.UserEntity;
 import io.renren.modules.app.service.UserService;
 import io.renren.modules.app.service.sql.MysqlService;
@@ -76,7 +78,7 @@ public class MySqlServiceImpl extends ServiceImpl<MysqlDao, MysqlConnectionEntit
         MysqlConnectDto mysqlConnectDto = new MysqlConnectDto(connectionEntity);
 
         DatabaseVo databaseColumns = getDatabaseColumns(mysqlConnectDto);
-
+        databaseColumns.setId(id);
         return R.success(databaseColumns);
     }
 
@@ -192,4 +194,55 @@ public class MySqlServiceImpl extends ServiceImpl<MysqlDao, MysqlConnectionEntit
         }
     }
 
+    @Override
+    public R getMySqlConnections(HttpServletRequest httpServletRequest) {
+        UserEntity userEntity = userService.currentUser(httpServletRequest);
+        LambdaQueryWrapper<MysqlConnectionEntity> queryWrapper = new LambdaQueryWrapper<>();
+        List<MysqlConnectionEntity> mysqlConnectionEntities = baseMapper.selectList(
+                queryWrapper.eq(MysqlConnectionEntity::getUserId, userEntity.getUserId())
+        );
+
+        List<MysqlConnectDto> mysqlConnectDtoList = new ArrayList<>();
+        for(MysqlConnectionEntity entity: mysqlConnectionEntities) {
+            MysqlConnectDto mysqlConnectDto = new MysqlConnectDto(entity);
+            mysqlConnectDto.setPassword("*****");
+            mysqlConnectDtoList.add(mysqlConnectDto);
+        }
+        return R.success(mysqlConnectDtoList);
+    }
+
+    @Override
+    public R executeSelect(MysqlSqlDto mysqlSqlDto) {
+        System.out.println(mysqlSqlDto);
+        LambdaQueryWrapper<MysqlConnectionEntity> queryWrapper = new LambdaQueryWrapper<>();
+        MysqlConnectionEntity connectionEntity = baseMapper.selectOne(
+                queryWrapper.eq(MysqlConnectionEntity::getId, mysqlSqlDto.getId())
+        );
+        MysqlConnectDto mysqlConnectDto = new MysqlConnectDto(connectionEntity);
+        Connection connect = getConnect(mysqlConnectDto);
+        try {
+            Statement statement = connect.createStatement();
+            ResultSet resultSet = statement.executeQuery(mysqlSqlDto.getCode());
+            ResultSetMetaData metaData = resultSet.getMetaData();
+            // 列名
+            List<Object> header = new ArrayList<>();
+            for(int i=1; i<=metaData.getColumnCount(); i++) {
+                header.add(metaData.getColumnName(i));
+            }
+            List<Map<Object, Object>> rows = new ArrayList<>();
+            while(resultSet.next()) {
+                Map<Object, Object> map = new HashMap<>();
+                for(int i=0; i<header.size(); i++) {
+                    map.put(header.get(i), resultSet.getObject(i+1));
+                }
+                rows.add(map);
+            }
+            CSVEntity csvEntity = new CSVEntity();
+            csvEntity.setHeaders(header);
+            csvEntity.setRows(rows);
+            return R.success(csvEntity);
+        } catch (SQLException throwables) {
+            return R.fail(MysqlCode.EXECUTE_FAIL.getCode(), throwables.getMessage());
+        }
+    }
 }

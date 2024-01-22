@@ -9,6 +9,7 @@ import java.util.List;
  */
 @Data
 public class DatabaseVo {
+    private long id;
     private String name;
     private List<String> tables;
 }

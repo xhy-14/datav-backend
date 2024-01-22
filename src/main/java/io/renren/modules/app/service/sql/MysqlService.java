@@ -2,6 +2,7 @@ package io.renren.modules.app.service.sql;
 
 import io.renren.common.utils.R;
 import io.renren.modules.app.dto.MysqlConnectDto;
+import io.renren.modules.app.dto.MysqlSqlDto;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -29,4 +30,18 @@ public interface MysqlService {
      * @return
      */
     R getDataBaseByID(Long id);
+
+    /**
+     * 获取我的所有数据库连接
+     * @param httpServletRequest
+     * @return
+     */
+    R getMySqlConnections(HttpServletRequest httpServletRequest);
+
+    /**
+     * 执行mysql语句
+     * @param mysqlSqlDto
+     * @return
+     */
+    R executeSelect(MysqlSqlDto mysqlSqlDto);
 }

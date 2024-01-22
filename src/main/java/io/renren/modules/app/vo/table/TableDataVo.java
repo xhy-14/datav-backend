@@ -8,6 +8,10 @@ import java.util.List;
 @Data
 public class TableDataVo {
     /**
+     * 数据表id
+     */
+    private long id;
+    /**
      * 数据表名
      */
     private String name;

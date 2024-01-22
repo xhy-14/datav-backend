@@ -10,6 +10,9 @@ import lombok.Data;
 @Data
 public class MysqlConnectDto {
 
+    @ApiModelProperty("id")
+    private long id;
+
     @ApiModelProperty("连接名")
     private String name;
 
@@ -32,6 +35,7 @@ public class MysqlConnectDto {
     private boolean isMysql8;
 
     public MysqlConnectDto(MysqlConnectionEntity mysqlConnectionEntity) {
+        this.id = mysqlConnectionEntity.getId();
         this.name = mysqlConnectionEntity.getDatabaseName();
         this.ip = mysqlConnectionEntity.getHost();
         this.port = mysqlConnectionEntity.getPort();

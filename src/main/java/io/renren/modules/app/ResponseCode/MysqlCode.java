@@ -4,7 +4,8 @@ package io.renren.modules.app.ResponseCode;
  * @author xiehanying
  */
 public enum  MysqlCode {
-    TEST_FAIL("FFFFF", "连接失败");
+    TEST_FAIL("FFFFF", "连接失败"),
+    EXECUTE_FAIL("A1111", "执行失败");
 
     private String code;
     private String msg;

@@ -115,6 +115,7 @@ public class TableServiceImpl extends ServiceImpl<TableDao, MetadataEntity> impl
 
         TableDataVo tableDataVo = new TableDataVo();
 
+        tableDataVo.setId(id);
         tableDataVo.setName(metadataEntity.getName());
         tableDataVo.setRowSum(csvEntity.getRows().size());
         tableDataVo.setData(csvEntity);

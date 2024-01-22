@@ -2,8 +2,10 @@ package io.renren.modules.app.controller.sql;
 
 import io.renren.common.utils.R;
 import io.renren.modules.app.dto.MysqlConnectDto;
+import io.renren.modules.app.dto.MysqlSqlDto;
 import io.renren.modules.app.service.sql.MysqlService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import oracle.jdbc.proxy.annotation.Post;
@@ -38,5 +40,17 @@ public class MySqlController {
     @ApiOperation("id获取数据库")
     public R getDatabaseByID(@ApiParam(name = "id", required = true) @PathVariable Long id) {
         return mysqlService.getDataBaseByID(id);
+    }
+
+    @GetMapping("/my-sql")
+    @ApiOperation("获取我的所有数据库连接")
+    public R getMySqlConnection(HttpServletRequest httpServletRequest) {
+        return mysqlService.getMySqlConnections(httpServletRequest);
+    }
+
+    @PostMapping("/execute")
+    @ApiOperation("执行查询代码")
+    public R execute(@RequestBody MysqlSqlDto mysqlSqlDto) {
+        return mysqlService.executeSelect(mysqlSqlDto);
     }
 }
