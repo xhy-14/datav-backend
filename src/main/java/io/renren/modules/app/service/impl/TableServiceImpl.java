@@ -262,6 +262,7 @@ public class TableServiceImpl extends ServiceImpl<TableDao, MetadataEntity> impl
 
             QueryWrapper<FileProjectRelationEntity> queryWrapper1 = new QueryWrapper<>();
             queryWrapper1.eq("file_id", metadataEntity.getDataFileId());
+            System.out.println(metadataEntity.getDataFileId());
             FileProjectRelationEntity relationEntity = projectRelationService.getBaseMapper().selectOne(queryWrapper1);
             tableVo.setProjectId(relationEntity.getDirectoryId());
 

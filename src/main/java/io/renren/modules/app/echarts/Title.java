@@ -9,7 +9,6 @@ public class Title {
      */
     private String text;
 
-
     /**
      * 标题字体
      */
