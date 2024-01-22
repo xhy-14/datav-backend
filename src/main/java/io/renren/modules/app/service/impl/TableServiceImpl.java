@@ -7,6 +7,7 @@ package io.renren.modules.app.service.impl;
 
 import cn.hutool.core.io.resource.MultiFileResource;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import io.renren.common.exception.RRException;
@@ -237,6 +238,12 @@ public class TableServiceImpl extends ServiceImpl<TableDao, MetadataEntity> impl
             tableVo.setName(metadataEntity.getName());
             tableVo.setDepiction(metadataEntity.getDepiction());
             tableVo.setId(metadataEntity.getId());
+
+            QueryWrapper<FileProjectRelationEntity> queryWrapper1 = new QueryWrapper<>();
+            queryWrapper1.eq("file_id", metadataEntity.getDataFileId());
+            FileProjectRelationEntity relationEntity = projectRelationService.getBaseMapper().selectOne(queryWrapper1);
+            tableVo.setProjectId(relationEntity.getDirectoryId());
+
             tableVos.add(tableVo);
         }
         return R.success(tableVos);

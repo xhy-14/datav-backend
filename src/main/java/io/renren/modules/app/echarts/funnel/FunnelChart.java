@@ -1,4 +1,4 @@
-package io.renren.modules.app.echarts.Funnel;
+package io.renren.modules.app.echarts.funnel;
 
 import io.renren.common.exception.RRException;
 import io.renren.modules.app.echarts.TextStyle;
