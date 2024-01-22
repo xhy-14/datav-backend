@@ -14,6 +14,7 @@ import io.renren.common.exception.RRException;
 import io.renren.common.utils.R;
 import io.renren.modules.app.dao.TableDao;
 import io.renren.modules.app.dto.TableDto;
+import io.renren.modules.app.dto.TableUpdateDTO;
 import io.renren.modules.app.entity.CSVEntity;
 import io.renren.modules.app.entity.UserEntity;
 import io.renren.modules.app.generator.BaseGenerator;
@@ -213,6 +214,25 @@ public class TableServiceImpl extends ServiceImpl<TableDao, MetadataEntity> impl
         this.baseMapper.insert(metadataEntity);
 
         return R.success(metadataEntity.getId());
+    }
+
+    @Override
+    public R updateTable(TableUpdateDTO tableDto) {
+        String csvString = csvUtils.CSVToString(tableDto.getData());
+        MetadataEntity metadataEntity = baseMapper.selectById(tableDto.getId());
+        FileEntity fileEntity = fileCreator.createFile(csvString, metadataEntity.getUserId());
+        baseMapper.updateById(metadataEntity);
+
+        QueryWrapper<FileProjectRelationEntity> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("file_id", metadataEntity.getDataFileId());
+        FileProjectRelationEntity relationEntity = projectRelationService.getBaseMapper().selectOne(queryWrapper);
+        relationEntity.setFileId(fileEntity.getId());
+
+        metadataEntity.setDataFileId(fileEntity.getId());
+
+        baseMapper.updateById(metadataEntity);
+        projectRelationService.getBaseMapper().updateById(relationEntity);
+        return R.success();
     }
 
     @Override

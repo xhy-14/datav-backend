@@ -8,6 +8,7 @@ package io.renren.modules.app.controller.table;
 import io.renren.common.exception.RRException;
 import io.renren.common.utils.R;
 import io.renren.modules.app.dto.TableDto;
+import io.renren.modules.app.dto.TableUpdateDTO;
 import io.renren.modules.app.service.TableService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -62,6 +63,13 @@ public class AppTableController {
                        @RequestBody TableDto tableDto,
                        HttpServletRequest httpServletRequest) {
         return tableService.saveTable(tableDto, httpServletRequest);
+    }
+
+    @PostMapping("/data/update")
+    @ApiOperation("修改数据集")
+    public R updateTable(@ApiParam(value = "数据表", required = true, type = "TableUpdateDTO")
+                         @RequestBody TableUpdateDTO tableUpdateDTO) {
+        return tableService.updateTable(tableUpdateDTO);
     }
 
     @GetMapping("/data/my")

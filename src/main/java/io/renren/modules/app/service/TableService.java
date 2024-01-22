@@ -3,6 +3,7 @@ package io.renren.modules.app.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import io.renren.common.utils.R;
 import io.renren.modules.app.dto.TableDto;
+import io.renren.modules.app.dto.TableUpdateDTO;
 import io.renren.modules.app.entity.CSVEntity;
 import io.renren.modules.table.entity.MetadataEntity;
 import org.springframework.web.multipart.MultipartFile;
@@ -60,4 +61,6 @@ public interface TableService extends IService<MetadataEntity> {
     R generateTableByFile(MultipartFile file);
 
     R datasetList(HttpServletRequest httpServletRequest);
+
+    R updateTable(TableUpdateDTO tableUpdateDTO);
 }
