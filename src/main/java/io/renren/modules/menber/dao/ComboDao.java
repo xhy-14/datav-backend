@@ -17,6 +17,4 @@ import java.util.List;
  */
 @Mapper
 public interface ComboDao extends BaseMapper<ComboEntity> {
-    @Select("select name, price, term, discount from menber_combo")
-    List<ComboInfoVo> getList();
 }
