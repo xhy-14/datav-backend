@@ -64,6 +64,7 @@ public class MySqlServiceImpl extends ServiceImpl<MysqlDao, MysqlConnectionEntit
         Date time = new Date(System.currentTimeMillis());
         connectionEntity.setUpdateTime(time);
         connectionEntity.setCreateTime(time);
+        connectionEntity.setName(mysqlConnectDto.getName());
         baseMapper.insert(connectionEntity);
 
         return R.success(getDatabaseColumns(mysqlConnectDto));
@@ -97,7 +98,7 @@ public class MySqlServiceImpl extends ServiceImpl<MysqlDao, MysqlConnectionEntit
                 columns.add(rs.getString(1));
             }
             DatabaseVo databaseVo = new DatabaseVo();
-            databaseVo.setName(mysqlConnectDto.getDatabase());
+            databaseVo.setName(mysqlConnectDto.getName());
             databaseVo.setTables(columns);
             return databaseVo;
         } catch (SQLException throwables) {

@@ -12,4 +12,5 @@ public interface FileService extends IService<FileEntity> {
 
     R upLoadFile(HttpServletRequest request, FileUploadDTO fileUploadDTO, MultipartFile file);
 
+    R upLoadOtherFile(MultipartFile file);
 }

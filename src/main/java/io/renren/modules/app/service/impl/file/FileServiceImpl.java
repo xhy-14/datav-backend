@@ -77,4 +77,28 @@ public class FileServiceImpl extends ServiceImpl<FileDao, FileEntity> implements
         return fileEntity;
     }
 
+    @Override
+    public R upLoadOtherFile(MultipartFile file) {
+        if (file.isEmpty()) {
+            throw new RRException("上传文件不能为空");
+        }
+        //上传文件
+        String suffix = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
+        String urlStr = null;
+        try {
+            urlStr = OSSFactory.build().uploadSuffix(file.getBytes(), suffix);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        //生成文件实体，存储文件表
+        FileEntity fileEntity = defaultValue(urlStr);
+        //文件大小，预留为0
+        fileEntity.setSize(0);
+        fileEntity.setDepiction("临时文件");
+        String fileName = System.currentTimeMillis() + file.getOriginalFilename();
+        fileEntity.setName(fileName);
+
+        return R.success(fileEntity);
+    }
 }

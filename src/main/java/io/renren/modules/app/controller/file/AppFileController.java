@@ -33,4 +33,10 @@ public class AppFileController {
         return fileService.upLoadFile(request, fileUploadDTO, file);
     }
 
+    @PostMapping("/upload-other")
+    @ApiOperation("上传用户源文件")
+    public R upload(@RequestParam("file")MultipartFile file) throws Exception {
+        return fileService.upLoadOtherFile(file);
+    }
+
 }

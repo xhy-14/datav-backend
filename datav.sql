@@ -552,6 +552,7 @@ CREATE TABLE data_generated_chart_parameter_relation (
 CREATE TABLE data_mysql_connection (
   id bigint unsigned AUTO_INCREMENT PRIMARY KEY COMMENT '连接ID',
   user_id bigint unsigned NOT NULL COMMENT '用户id',
+  name varchar(255) NOT NULL UNIQUE COMMENT '连接名',
   host varchar(255) NOT NULL COMMENT '主机',
   port varchar(255) NOT NULL COMMENT '端口',
   user_name varchar(255) NOT NULL COMMENT '用户名',

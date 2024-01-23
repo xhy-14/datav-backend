@@ -36,7 +36,7 @@ public class MysqlConnectDto {
 
     public MysqlConnectDto(MysqlConnectionEntity mysqlConnectionEntity) {
         this.id = mysqlConnectionEntity.getId();
-        this.name = mysqlConnectionEntity.getDatabaseName();
+        this.name = mysqlConnectionEntity.getName();
         this.ip = mysqlConnectionEntity.getHost();
         this.port = mysqlConnectionEntity.getPort();
         this.database = mysqlConnectionEntity.getDatabaseName();

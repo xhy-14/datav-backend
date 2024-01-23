@@ -29,6 +29,10 @@ public class MysqlConnectionEntity implements Serializable {
 	 */
 	private Long userId;
 	/**
+	 * 连接名
+	 */
+	private String name;
+	/**
 	 * 主机
 	 */
 	private String host;
