@@ -9,7 +9,7 @@ import com.alipay.api.request.AlipayTradePagePayRequest;
 import io.renren.common.utils.R;
 import io.renren.modules.app.config.AliPayConfig;
 import io.renren.modules.app.entity.AliPay;
-import io.renren.modules.menber.service.OrderService;
+import io.renren.modules.app.service.OrderService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ import java.util.Map;
 @Api(tags = "支付接口")
 public class AliPayController {
 
-    private static final String GATEWAY_URL = "https://openapi.alipaydev.com/gateway.do";
+    private static final String GATEWAY_URL = "https://openapi-sandbox.dl.alipaydev.com/gateway.do";
     private static final String FORMAT = "JSON";
     private static final String CHARSET = "UTF-8";
     //签名方式
@@ -39,7 +39,7 @@ public class AliPayController {
     private AliPayConfig aliPayConfig;
 
     @Autowired
-    OrderService orderService;
+    private OrderService orderService;
 
     @GetMapping("/pay") // &subject=xxx&traceNo=xxx&totalAmount=xxx
     @ApiOperation("支付")
@@ -57,6 +57,7 @@ public class AliPayController {
         bizContent.put("subject", aliPay.getSubject());   // 支付的名称
         bizContent.put("product_code", "FAST_INSTANT_TRADE_PAY");  // 固定配置
         request.setBizContent(bizContent.toString());
+        //request.setReturnUrl("");
 
         // 执行请求，拿到响应的结果，返回给浏览器
         String form = "";
@@ -103,6 +104,7 @@ public class AliPayController {
                 System.out.println("买家付款时间: " + params.get("gmt_payment"));
                 System.out.println("买家付款金额: " + params.get("buyer_pay_amount"));
                 R.success("支付成功");
+                orderService.computeMember(request, Long.valueOf(params.get("out_trade_no")));
             }
         }
         return R.success("购买成功");
